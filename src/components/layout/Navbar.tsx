@@ -7,6 +7,7 @@ import { useSectionNav } from "@/hooks/useSectionNav";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { Magnetic } from "@/components/shared/Magnetic";
 import { NAV_LINKS, PERSONAL, SOCIAL_LINKS } from "@/constants";
+import { lockScroll, unlockScroll } from "@/utils/scrollLock";
 import { cn } from "@/utils/cn";
 
 const SECTION_IDS = NAV_LINKS.map((l) => l.href.replace("#", ""));
@@ -23,11 +24,11 @@ export function Navbar() {
     setScrolled(lenis.scroll > 24);
   });
 
+  // Ref-counted so this can't stomp on another overlay's lock (or be stomped).
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    if (!mobileOpen) return;
+    lockScroll();
+    return unlockScroll;
   }, [mobileOpen]);
 
   function handleNavClick(href: string) {

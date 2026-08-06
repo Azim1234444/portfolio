@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { MotionConfig } from "framer-motion";
 import { LoadingProvider } from "@/context/LoadingContext";
 import { SmoothScrollProvider } from "@/context/SmoothScrollProvider";
 import { Loader } from "@/components/shared/Loader";
@@ -17,31 +18,37 @@ import { NotFound } from "@/pages/NotFound";
 
 function App() {
   return (
-    <LoadingProvider>
-      <SmoothScrollProvider>
-        <ScrollToTop />
-        <Loader />
-        <PointerFX />
-        <ScrollProgress />
-        <Navbar />
+    // `reducedMotion="user"` makes every motion component honour the OS setting:
+    // transform and layout animations are dropped, opacity fades are kept so
+    // content still resolves rather than appearing stuck at its `initial` state.
+    // The CSS block in index.css covers keyframe animations; this covers JS.
+    <MotionConfig reducedMotion="user">
+      <LoadingProvider>
+        <SmoothScrollProvider>
+          <ScrollToTop />
+          <Loader />
+          <PointerFX />
+          <ScrollProgress />
+          <Navbar />
 
-        <main>
-          <PageTransition>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/projects/:slug" element={<ProjectDetail />} />
-              <Route path="/404" element={<NotFound />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </PageTransition>
-        </main>
+          <main>
+            <PageTransition>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/projects/:slug" element={<ProjectDetail />} />
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </PageTransition>
+          </main>
 
-        <Footer />
-        <BackToTop />
-        <WhatsAppChat />
-        <CommandPalette />
-      </SmoothScrollProvider>
-    </LoadingProvider>
+          <Footer />
+          <BackToTop />
+          <WhatsAppChat />
+          <CommandPalette />
+        </SmoothScrollProvider>
+      </LoadingProvider>
+    </MotionConfig>
   );
 }
 

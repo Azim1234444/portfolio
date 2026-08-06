@@ -26,7 +26,10 @@ export function FloatingObject() {
   return (
     <group ref={groupRef}>
       <Float speed={1.6} rotationIntensity={0.5} floatIntensity={1.3}>
-        <Icosahedron args={[1.35, 5]}>
+        {/* Detail 3 (~1.3k tris) rather than 5 (~20k). MeshDistortMaterial
+            displaces vertices in the shader, so the silhouette is identical at
+            this scale — the extra subdivision was pure cost. */}
+        <Icosahedron args={[1.35, 3]}>
           <MeshDistortMaterial
             color="#4f6fff"
             attach="material"

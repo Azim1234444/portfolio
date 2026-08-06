@@ -62,6 +62,11 @@ export function PointerFX() {
     };
   }, [isTouch]);
 
+  // On touch devices the rAF loop never starts, so nothing would ever move these.
+  // The glow used to render anyway and sat frozen in the top-left corner of any
+  // tablet wide enough to hit the `md:` breakpoint.
+  if (isTouch) return null;
+
   return (
     <>
       {/* Ambient glow */}
@@ -75,24 +80,20 @@ export function PointerFX() {
         }}
       />
 
-      {isTouch ? null : (
-        <>
-          <div
-            ref={ringRef}
-            aria-hidden
-            className="pointer-events-none fixed left-0 top-0 z-[60] hidden -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/40 mix-blend-difference transition-[width,height] duration-200 ease-out will-change-transform md:block"
-            style={{
-              width: isHovering ? 56 : 34,
-              height: isHovering ? 56 : 34,
-            }}
-          />
-          <div
-            ref={dotRef}
-            aria-hidden
-            className="pointer-events-none fixed left-0 top-0 z-[60] hidden h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white mix-blend-difference will-change-transform md:block"
-          />
-        </>
-      )}
+      <div
+        ref={ringRef}
+        aria-hidden
+        className="pointer-events-none fixed left-0 top-0 z-[60] hidden -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/40 mix-blend-difference transition-[width,height] duration-200 ease-out will-change-transform md:block"
+        style={{
+          width: isHovering ? 56 : 34,
+          height: isHovering ? 56 : 34,
+        }}
+      />
+      <div
+        ref={dotRef}
+        aria-hidden
+        className="pointer-events-none fixed left-0 top-0 z-[60] hidden h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white mix-blend-difference will-change-transform md:block"
+      />
     </>
   );
 }

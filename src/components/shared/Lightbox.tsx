@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useMediaQuery";
+import { lockScroll, unlockScroll } from "@/utils/scrollLock";
 import { cn } from "@/utils/cn";
 
 export interface LightboxImage {
@@ -43,7 +44,7 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
   const prev = useCallback(() => index !== null && goTo(index - 1), [goTo, index]);
   const next = useCallback(() => index !== null && goTo(index + 1), [goTo, index]);
 
-  // Keyboard: arrows navigate, Escape closes.
+  // Keyboard: arrows navigate, Escape closes, Tab stays inside the dialog.
   useEffect(() => {
     if (!isOpen) return;
     function onKey(e: KeyboardEvent) {
@@ -56,23 +57,39 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
         next();
+      } else if (e.key === "Tab") {
+        // `aria-modal` promises focus is contained; without a trap, Tab walks
+        // straight out into the page hidden behind the overlay.
+        const focusables = containerRef.current?.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusables?.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && (active === first || active === containerRef.current)) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, onClose, prev, next]);
 
-  // Lock page scroll (incl. Lenis, which reads body overflow) while open.
+  // Freeze the page (incl. Lenis, which reads body overflow) while open.
   useEffect(() => {
     if (!isOpen) return;
     restoreFocusRef.current = document.activeElement as HTMLElement | null;
-    const { overflow } = document.body.style;
-    document.body.style.overflow = "hidden";
-    document.documentElement.classList.add("lightbox-open");
+    lockScroll();
     containerRef.current?.focus();
     return () => {
-      document.body.style.overflow = overflow;
-      document.documentElement.classList.remove("lightbox-open");
+      unlockScroll();
+      // Send focus back to the thumbnail that opened the viewer, so keyboard
+      // users resume where they left off instead of at the top of the document.
       restoreFocusRef.current?.focus?.();
     };
   }, [isOpen]);

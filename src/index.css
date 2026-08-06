@@ -129,7 +129,11 @@
     border-radius: 2px;
   }
 
-  @media (pointer: fine) {
+  /* Hide the native cursor only where PointerFX actually draws a replacement.
+     Its dot and ring are `md:block`, so without the width floor a mouse user
+     on a narrow window gets no cursor at all. Reduced-motion users keep the
+     native cursor too — the custom one trails behind the pointer by design. */
+  @media (pointer: fine) and (min-width: 768px) and (prefers-reduced-motion: no-preference) {
     body, a, button, input, textarea, [data-cursor] {
       cursor: none;
     }
@@ -185,5 +189,27 @@
   }
   .mask-fade-x {
     mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion.
+
+   The JS side already checks this via `useReducedMotion` (Lightbox, particles,
+   the 3D hero), but CSS keyframes ran regardless — the pinging availability
+   dot, the blinking typewriter caret, the panning grid. Honouring the
+   preference in one place and not the other is worse than not trying.
+
+   Deliberately unlayered and !important: it must outrank every Tailwind
+   utility and animation token, whatever order they land in.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
