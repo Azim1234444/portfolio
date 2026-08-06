@@ -113,7 +113,7 @@ export function ProjectCard({ project, index }: { project: ProjectItem; index: n
             />
           )}
 
-          <span className="absolute left-5 top-5 rounded-full border border-white/20 bg-black/30 px-3 py-1 font-mono text-[11px] text-white backdrop-blur">
+          <span className="absolute left-5 top-5 rounded-full border border-border-strong bg-black/30 px-3 py-1 font-mono text-[11px] text-white backdrop-blur">
             {project.category}
           </span>
           <span className="absolute right-5 top-5 font-mono text-[11px] text-white/70">
@@ -132,26 +132,26 @@ export function ProjectCard({ project, index }: { project: ProjectItem; index: n
             {project.tags.slice(0, 4).map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 font-mono text-[10.5px] text-mist"
+                className="rounded-full border border-border bg-tint px-2.5 py-1 font-mono text-[10.5px] text-mist"
               >
                 {tag}
               </span>
             ))}
             {project.tags.length > 4 && (
-              <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 font-mono text-[10.5px] text-fog">
+              <span className="rounded-full border border-border bg-tint px-2.5 py-1 font-mono text-[10.5px] text-fog">
                 +{project.tags.length - 4}
               </span>
             )}
           </div>
 
-          <div className="mt-6 flex items-center gap-2 border-t border-white/10 pt-5">
+          <div className="mt-6 flex items-center gap-2 border-t border-border pt-5">
             {project.github && (
               <a
                 href={project.github}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`${project.title} on GitHub`}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-mist transition-colors hover:border-white/25 hover:text-ivory"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-mist transition-colors hover:border-border-strong hover:text-ivory"
               >
                 <FiGithub className="h-4 w-4" />
               </a>
@@ -162,7 +162,7 @@ export function ProjectCard({ project, index }: { project: ProjectItem; index: n
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`${project.title} live demo`}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-mist transition-colors hover:border-white/25 hover:text-ivory"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-mist transition-colors hover:border-border-strong hover:text-ivory"
               >
                 <FiArrowUpRight className="h-4 w-4" />
               </a>

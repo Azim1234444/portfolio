@@ -5,7 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#050507" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark light" />
 
     <title>Muhammad Nur Azim — Software Engineer &amp; Game Developer</title>
     <meta
@@ -48,6 +48,29 @@
     />
   </head>
   <body>
+    <!--
+      Resolve the theme before first paint. If React did this, the page would
+      render dark and then flip, which is exactly the flash this avoids.
+      Deliberately synchronous and inline: a deferred or external script runs
+      too late to matter.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("portfolio-theme");
+          var theme =
+            stored ||
+            (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+          if (theme === "light") {
+            document.documentElement.style.background = "#f6f6fa";
+          }
+        } catch (e) {
+          document.documentElement.dataset.theme = "dark";
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

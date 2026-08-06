@@ -133,7 +133,7 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
               onClick={onClose}
               aria-label="Close image viewer"
               data-cursor="hover"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-ivory transition-colors hover:bg-white/[0.12]"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-tint text-ivory transition-colors hover:bg-tint-3"
             >
               <X className="h-4 w-4" />
             </button>
@@ -189,7 +189,7 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
                       "h-11 w-16 shrink-0 overflow-hidden rounded-lg border transition-all duration-300",
                       i === index
                         ? "border-neon-blue opacity-100 ring-1 ring-neon-blue/50"
-                        : "border-white/10 opacity-45 hover:opacity-80"
+                        : "border-border opacity-45 hover:opacity-80"
                     )}
                   >
                     <img
@@ -222,7 +222,7 @@ function NavButton({ side, onClick }: { side: "left" | "right"; onClick: () => v
       aria-label={side === "left" ? "Previous image" : "Next image"}
       data-cursor="hover"
       className={cn(
-        "absolute z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-ivory backdrop-blur transition-all hover:scale-110 hover:bg-white/[0.14] sm:h-12 sm:w-12",
+        "absolute z-10 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-black/50 text-ivory backdrop-blur transition-all hover:scale-110 hover:bg-white/[0.14] sm:h-12 sm:w-12",
         side === "left" ? "left-1 sm:left-4" : "right-1 sm:right-4"
       )}
     >

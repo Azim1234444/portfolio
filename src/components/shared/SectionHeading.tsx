@@ -21,7 +21,7 @@ export function SectionHeading({
       <FadeIn>
         <div
           className={cn(
-            "mb-5 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5",
+            "mb-5 inline-flex items-center gap-2.5 rounded-full border border-border bg-tint px-4 py-1.5",
             align === "center" && "mx-auto"
           )}
         >

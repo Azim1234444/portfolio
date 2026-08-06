@@ -33,7 +33,7 @@ function SkillCategoryCard({ category, index }: { category: SkillCategory; index
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, delay: (index % 3) * 0.1, ease: EASE }}
-      className="glass group rounded-3xl p-7 transition-colors hover:border-white/20 sm:p-8"
+      className="glass group rounded-3xl p-7 transition-colors hover:border-border-strong sm:p-8"
     >
       <div className="mb-6 flex items-center gap-3">
         <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/20 to-violet-500/20 text-neon-blue transition-transform duration-300 group-hover:scale-110">
@@ -49,7 +49,7 @@ function SkillCategoryCard({ category, index }: { category: SkillCategory; index
               <span className="text-mist">{skill.name}</span>
               <span className="font-mono text-xs text-fog">{skill.level}%</span>
             </div>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06]">
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-tint-2">
               <motion.div
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: skill.level / 100 }}

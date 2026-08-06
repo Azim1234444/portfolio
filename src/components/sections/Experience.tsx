@@ -18,7 +18,7 @@ export function Experience() {
         <div className="relative mt-16 space-y-8">
           <div
             aria-hidden
-            className="absolute left-6 top-2 hidden h-[calc(100%-1rem)] w-px bg-gradient-to-b from-blue-500/40 via-white/10 to-transparent sm:block"
+            className="absolute left-6 top-2 hidden h-[calc(100%-1rem)] w-px bg-gradient-to-b from-blue-500/40 via-tint-3 to-transparent sm:block"
           />
           {EXPERIENCE.map((exp, i) => (
             <ExperienceCard key={exp.company} exp={exp} index={i} />
@@ -90,7 +90,7 @@ function ExperienceCard({ exp, index }: { exp: (typeof EXPERIENCE)[number]; inde
           {exp.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[11px] text-mist transition-colors group-hover:border-white/20"
+              className="rounded-full border border-border bg-tint px-3 py-1 font-mono text-[11px] text-mist transition-colors group-hover:border-border-strong"
             >
               {tag}
             </span>

@@ -52,7 +52,7 @@ export function Certifications() {
                   <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-neon-blue">
                     {cert.category}
                   </p>
-                  <span className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 font-mono text-[11px] text-mist">
+                  <span className="flex items-center gap-1 rounded-full border border-border bg-tint px-2.5 py-1 font-mono text-[11px] text-mist">
                     <BadgeCheck className="h-3 w-3 text-emerald-400" />
                     {cert.year}
                   </span>

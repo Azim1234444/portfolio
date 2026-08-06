@@ -56,7 +56,7 @@ export function ProjectDetail() {
           className="mt-8"
         >
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-xs text-neon-blue">
+            <span className="rounded-full border border-border bg-tint px-3 py-1 font-mono text-xs text-neon-blue">
               {project.category}
             </span>
             <span className="font-mono text-xs text-fog">{project.year}</span>
@@ -91,7 +91,7 @@ export function ProjectDetail() {
               />
               <span
                 aria-hidden
-                className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full border border-white/15 bg-black/50 px-3 py-1.5 font-mono text-[11px] text-ivory opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100"
+                className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full border border-border-strong bg-black/50 px-3 py-1.5 font-mono text-[11px] text-ivory opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100"
               >
                 <Expand className="h-3.5 w-3.5" /> View full size
               </span>
@@ -171,7 +171,7 @@ export function ProjectDetail() {
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[11px] text-mist"
+                  className="rounded-full border border-border bg-tint px-3 py-1 font-mono text-[11px] text-mist"
                 >
                   {tag}
                 </span>
@@ -215,7 +215,7 @@ export function ProjectDetail() {
                       aria-hidden
                       className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-400 group-hover:bg-black/35 group-hover:opacity-100"
                     >
-                      <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/50 text-ivory backdrop-blur">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-full border border-border-strong bg-black/50 text-ivory backdrop-blur">
                         <Expand className="h-4 w-4" />
                       </span>
                     </span>
@@ -227,7 +227,7 @@ export function ProjectDetail() {
           </section>
         )}
 
-        <div className="mt-20 border-t border-white/10 pt-10">
+        <div className="mt-20 border-t border-border pt-10">
           <Link
             to={`/projects/${next.slug}`}
             className="group flex items-center justify-between gap-4"

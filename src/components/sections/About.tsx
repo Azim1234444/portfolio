@@ -53,7 +53,7 @@ function ProfilePortrait() {
     <div className="group relative aspect-[4/5] w-full">
       <motion.div
         aria-hidden
-        className="absolute -inset-4 rounded-[2.5rem] border border-dashed border-white/15"
+        className="absolute -inset-4 rounded-[2.5rem] border border-dashed border-border-strong"
         animate={{ rotate: 360 }}
         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
       />
@@ -108,7 +108,7 @@ function StatCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.4 }}
       transition={{ duration: 0.7, delay, ease: EASE }}
-      className="glass rounded-2xl px-5 py-6 text-center transition-colors hover:border-white/20 sm:text-left"
+      className="glass rounded-2xl px-5 py-6 text-center transition-colors hover:border-border-strong sm:text-left"
     >
       <p className="font-display text-3xl font-semibold tabular-nums text-ivory sm:text-4xl">
         {decimals ? animated.toFixed(decimals) : Math.round(animated)}
@@ -121,7 +121,7 @@ function StatCard({
 
 function EducationTimeline() {
   return (
-    <ol className="relative border-l border-white/10 pl-8">
+    <ol className="relative border-l border-border pl-8">
       {EDUCATION.map((edu, i) => (
         <motion.li
           key={edu.degree}
@@ -141,7 +141,7 @@ function EducationTimeline() {
             {edu.institution} · {edu.location}
           </p>
           <p className="mt-3 text-sm leading-relaxed text-mist/90">{edu.detail}</p>
-          <span className="mt-3 inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[11px] text-violet-300">
+          <span className="mt-3 inline-flex items-center rounded-full border border-border bg-tint px-3 py-1 font-mono text-[11px] text-violet-300">
             {edu.gpa}
           </span>
         </motion.li>

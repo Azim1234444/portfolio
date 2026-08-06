@@ -6,6 +6,7 @@ import { useLenis } from "lenis/react";
 import { useSectionNav } from "@/hooks/useSectionNav";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { Magnetic } from "@/components/shared/Magnetic";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { NAV_LINKS, PERSONAL, SOCIAL_LINKS } from "@/constants";
 import { lockScroll, unlockScroll } from "@/utils/scrollLock";
 import { cn } from "@/utils/cn";
@@ -110,12 +111,16 @@ export function Navbar() {
               onClick={() =>
                 document.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }))
               }
-              className="hidden min-h-11 items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 text-xs text-fog transition hover:border-white/20 hover:text-ivory sm:flex"
+              className="hidden min-h-11 items-center gap-2 rounded-full border border-border bg-tint px-3.5 text-xs text-fog transition hover:border-border-strong hover:text-ivory sm:flex"
               aria-label="Open command palette"
             >
               <CommandIcon className="h-3.5 w-3.5" />
               <kbd className="font-mono">⌘K</kbd>
             </button>
+
+            {/* Reachable at every width — on phones it is the one control
+                besides the hamburger, so it must not hide behind the menu. */}
+            <ThemeToggle />
 
             <button
               type="button"
@@ -144,7 +149,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-ivory"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-ivory"
                 aria-label="Close menu"
               >
                 <X className="h-5 w-5" />
@@ -174,7 +179,7 @@ export function Navbar() {
               ))}
             </ul>
 
-            <div className="flex items-center justify-between border-t border-white/10 px-8 py-6">
+            <div className="flex items-center justify-between border-t border-border px-8 py-6">
               <span className="text-xs text-fog">{PERSONAL.email}</span>
               <div className="flex items-center gap-3">
                 <IconLink href={SOCIAL_LINKS.github} label="GitHub" icon={FiGithub} />
@@ -205,7 +210,7 @@ function IconLink({
         target={href.startsWith("http") ? "_blank" : undefined}
         rel="noreferrer"
         aria-label={label}
-        className="flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:bg-white/8 hover:text-ivory"
+        className="flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:bg-tint-2 hover:text-ivory"
       >
         <Icon className="h-4 w-4" />
       </a>

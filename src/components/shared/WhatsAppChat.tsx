@@ -74,7 +74,7 @@ export function WhatsAppChat() {
             transition={{ duration: reducedMotion ? 0 : 0.32, ease: EASE }}
             className="glass-strong noise-overlay fixed bottom-24 left-5 z-[60] w-[min(21rem,calc(100vw-2.5rem))] overflow-hidden rounded-3xl shadow-2xl shadow-black/50 sm:bottom-28 sm:left-8"
           >
-            <div className="relative flex items-center gap-3 border-b border-white/10 bg-gradient-to-r from-emerald-500/20 to-emerald-400/5 px-5 py-4">
+            <div className="relative flex items-center gap-3 border-b border-border bg-gradient-to-r from-emerald-500/20 to-emerald-400/5 px-5 py-4">
               <span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 text-white">
                 <FaWhatsapp className="h-5 w-5" />
               </span>
@@ -92,14 +92,14 @@ export function WhatsAppChat() {
                 onClick={() => setOpen(false)}
                 aria-label="Close WhatsApp chat"
                 data-cursor="hover"
-                className="ml-auto flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:bg-white/10 hover:text-ivory"
+                className="ml-auto flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:bg-tint-3 hover:text-ivory"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
 
             <div className="px-5 py-4">
-              <p className="rounded-2xl rounded-tl-sm bg-white/[0.06] px-4 py-3 text-sm leading-relaxed text-mist">
+              <p className="rounded-2xl rounded-tl-sm bg-tint-2 px-4 py-3 text-sm leading-relaxed text-mist">
                 Hey there 👋 Send me a message and I&apos;ll get back to you on WhatsApp.
               </p>
 
@@ -112,7 +112,7 @@ export function WhatsAppChat() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 rows={3}
-                className="mt-4 w-full resize-none rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-ivory outline-none transition-colors placeholder:text-fog focus:border-emerald-400/60"
+                className="mt-4 w-full resize-none rounded-2xl border border-border bg-black/30 px-4 py-3 text-sm text-ivory outline-none transition-colors placeholder:text-fog focus:border-emerald-400/60"
                 placeholder="Write your message…"
               />
 

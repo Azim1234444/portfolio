@@ -100,10 +100,10 @@ export function CommandPalette() {
             </CommandGroup>
           </CommandList>
         </Command>
-        <div className="flex items-center justify-between border-t border-white/10 px-5 py-3 text-[11px] text-fog">
+        <div className="flex items-center justify-between border-t border-border px-5 py-3 text-[11px] text-fog">
           <span>Navigate with ↑ ↓, select with ↵</span>
           <span className="flex items-center gap-1">
-            <kbd className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono">esc</kbd>
+            <kbd className="rounded border border-border bg-tint-2 px-1.5 py-0.5 font-mono">esc</kbd>
             to close
           </span>
         </div>

@@ -108,7 +108,7 @@ export function Contact() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
-              <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10" />
+              <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-border" />
             </div>
           </FadeIn>
 

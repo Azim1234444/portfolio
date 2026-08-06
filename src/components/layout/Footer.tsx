@@ -9,7 +9,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-white/10 pt-20">
+    <footer className="relative border-t border-border pt-20">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <button
           type="button"
@@ -29,7 +29,7 @@ export function Footer() {
           </motion.span>
         </button>
 
-        <div className="mt-14 grid grid-cols-1 gap-10 border-t border-white/10 py-12 sm:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-10 border-t border-border py-12 sm:grid-cols-3">
           <div>
             <div className="flex items-center gap-2 font-display text-lg font-semibold text-ivory">
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-violet-500 text-sm text-white">
@@ -103,7 +103,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-8 text-xs text-fog sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-border py-8 text-xs text-fog sm:flex-row">
           <p>© {year} Muhammad Nur Azim Abdul Halim. All rights reserved.</p>
           <button
             type="button"

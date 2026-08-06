@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "@/hooks/useMediaQuery";
+import { useTheme } from "@/context/ThemeProvider";
 
 interface Particle {
   x: number;
@@ -16,16 +17,33 @@ interface ParticlesBackgroundProps {
   density?: number;
 }
 
-const COLORS: Record<Particle["hue"], string> = {
-  blue: "79, 156, 255",
-  violet: "168, 85, 247",
-  white: "246, 245, 248",
+/**
+ * Per-theme particle colours. The dark set includes near-white specks, which
+ * are simply invisible on a light background — so the light set swaps them for
+ * a deep slate and darkens the accents enough to register against #f6f6fa.
+ */
+const COLORS: Record<"dark" | "light", Record<Particle["hue"], string>> = {
+  dark: {
+    blue: "79, 156, 255",
+    violet: "168, 85, 247",
+    white: "246, 245, 248",
+  },
+  light: {
+    blue: "37, 99, 235",
+    violet: "124, 58, 237",
+    white: "70, 70, 96",
+  },
 };
 
 /** Lightweight canvas-based ambient particle field. Purely decorative. */
 export function ParticlesBackground({ className, density = 60 }: ParticlesBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reducedMotion = useReducedMotion();
+  const { theme } = useTheme();
+  // Read through a ref so a theme change recolours the next frame instead of
+  // tearing down the canvas and regenerating every particle.
+  const paletteRef = useRef(COLORS[theme]);
+  paletteRef.current = COLORS[theme];
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -75,7 +93,7 @@ export function ParticlesBackground({ className, density = 60 }: ParticlesBackgr
 
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(${COLORS[p.hue]}, ${p.alpha})`;
+        ctx!.fillStyle = `rgba(${paletteRef.current[p.hue]}, ${p.alpha})`;
         ctx!.fill();
       }
       frame = requestAnimationFrame(tick);

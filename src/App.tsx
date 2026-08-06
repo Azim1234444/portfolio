@@ -1,6 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { MotionConfig } from "framer-motion";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import { ThemeProvider } from "@/context/ThemeProvider";
 import { LoadingProvider } from "@/context/LoadingContext";
 import { SmoothScrollProvider } from "@/context/SmoothScrollProvider";
 import { Loader } from "@/components/shared/Loader";
@@ -30,7 +31,9 @@ import { NotFound } from "@/pages/NotFound";
  */
 function VitalsReporter() {
   const { pathname } = useLocation();
-  const route = pathname.startsWith("/projects/") ? "/projects/[slug]" : pathname;
+  const route = pathname.startsWith("/projects/")
+    ? "/projects/[slug]"
+    : pathname;
   return <SpeedInsights route={route} />;
 }
 
@@ -41,33 +44,35 @@ function App() {
     // content still resolves rather than appearing stuck at its `initial` state.
     // The CSS block in index.css covers keyframe animations; this covers JS.
     <MotionConfig reducedMotion="user">
-      <LoadingProvider>
-        <SmoothScrollProvider>
-          <ScrollToTop />
-          <Loader />
-          <PointerFX />
-          <ScrollProgress />
-          <Navbar />
+      <ThemeProvider>
+        <LoadingProvider>
+          <SmoothScrollProvider>
+            <ScrollToTop />
+            <Loader />
+            <PointerFX />
+            <ScrollProgress />
+            <Navbar />
 
-          <main>
-            <PageTransition>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/projects/:slug" element={<ProjectDetail />} />
-                <Route path="/404" element={<NotFound />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </PageTransition>
-          </main>
+            <main>
+              <PageTransition>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/projects/:slug" element={<ProjectDetail />} />
+                  <Route path="/404" element={<NotFound />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </PageTransition>
+            </main>
 
-          <Footer />
-          <BackToTop />
-          <WhatsAppChat />
-          <CommandPalette />
+            <Footer />
+            <BackToTop />
+            <WhatsAppChat />
+            <CommandPalette />
 
-          <VitalsReporter />
-        </SmoothScrollProvider>
-      </LoadingProvider>
+            <VitalsReporter />
+          </SmoothScrollProvider>
+        </LoadingProvider>
+      </ThemeProvider>
     </MotionConfig>
   );
 }

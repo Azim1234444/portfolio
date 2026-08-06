@@ -67,7 +67,7 @@ export function Hero() {
         >
           <motion.div
             variants={item}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5"
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-tint px-4 py-1.5"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -135,7 +135,7 @@ export function Hero() {
           </motion.div>
 
           <motion.div variants={item} className="mt-12 flex items-center gap-3">
-            <span className="h-px w-10 bg-white/15" />
+            <span className="h-px w-10 bg-border-strong" />
             <div className="flex items-center gap-2">
               <SocialIcon href={SOCIAL_LINKS.github} label="GitHub" icon={FiGithub} />
               <SocialIcon href={SOCIAL_LINKS.linkedin} label="LinkedIn" icon={FiLinkedin} />
