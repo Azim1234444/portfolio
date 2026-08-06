@@ -27,7 +27,7 @@ export const NAV_LINKS = [
 ];
 
 export const SOCIAL_LINKS = {
-  github: "https://github.com/AzimHalim123",
+  github: "https://github.com/Azim1234444",
   linkedin: "https://www.linkedin.com/in/muhammadnurazim",
   email: "mailto:azimhebat666@gmail.com",
   /**
