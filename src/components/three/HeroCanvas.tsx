@@ -1,15 +1,30 @@
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { FloatingObject } from "@/components/three/FloatingObject";
-import { useReducedMotion } from "@/hooks/useMediaQuery";
+import { HeroVisualFallback } from "@/components/three/HeroVisualFallback";
 
-/** Cap the device pixel ratio — past ~1.75 the extra fill cost buys nothing here. */
-const DPR: [number, number] = [1, 1.75];
+/**
+ * Pick a pixel-ratio ceiling from what the device reports.
+ *
+ * A distorting shader over a full-height canvas is fill-rate bound, so DPR is
+ * the single biggest lever — far more than geometry. Read once at module scope:
+ * these values never change for the life of the page, and reading them per
+ * render would just cause layout thrash.
+ */
+function adaptiveDpr(): [number, number] {
+  if (typeof navigator === "undefined") return [1, 1.5];
+  const cores = navigator.hardwareConcurrency ?? 4;
+  const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 4;
+  if (cores <= 4 || memory <= 4) return [1, 1.25];
+  if (cores <= 8) return [1, 1.5];
+  return [1, 2];
+}
 
 export function HeroCanvas() {
-  const reducedMotion = useReducedMotion();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(true);
+  const [failed, setFailed] = useState(false);
+  const dpr = useMemo(adaptiveDpr, []);
 
   // R3F's default `frameloop="always"` keeps rendering at 60fps even once the
   // hero has scrolled far off screen — a continuous GPU and battery cost for
@@ -35,20 +50,23 @@ export function HeroCanvas() {
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
-  if (reducedMotion) {
-    return (
-      <div className="flex h-full w-full items-center justify-center">
-        <div className="h-64 w-64 rounded-full bg-gradient-to-br from-blue-500/30 to-violet-500/30 blur-2xl" />
-      </div>
-    );
-  }
+  // Some devices and locked-down browsers refuse a WebGL context entirely.
+  // Falling back beats leaving a blank column where the hero visual should be.
+  if (failed) return <HeroVisualFallback />;
 
   return (
     <div ref={wrapperRef} className="h-full w-full">
       <Canvas
-        dpr={DPR}
+        dpr={dpr}
         frameloop={inView ? "always" : "never"}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        onCreated={({ gl }) => {
+          gl.domElement.addEventListener("webglcontextlost", (e) => {
+            e.preventDefault();
+            setFailed(true);
+          });
+        }}
+        fallback={<HeroVisualFallback />}
+        gl={{ antialias: dpr[1] <= 1.25 ? false : true, alpha: true, powerPreference: "high-performance" }}
         camera={{ position: [0, 0, 6.4], fov: 42 }}
         className="!touch-none"
       >

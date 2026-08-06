@@ -5,7 +5,9 @@ import { Download, FolderKanban, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/shared/Magnetic";
 import { ParticlesBackground } from "@/components/shared/ParticlesBackground";
+import { HeroVisualFallback } from "@/components/three/HeroVisualFallback";
 import { useTypewriter } from "@/hooks/useTypewriter";
+import { useMediaQuery, useReducedMotion } from "@/hooks/useMediaQuery";
 import { useSmoothScroll } from "@/context/SmoothScrollProvider";
 import { useLoading } from "@/context/LoadingContext";
 import { PERSONAL, SOCIAL_LINKS } from "@/constants";
@@ -32,6 +34,13 @@ export function Hero() {
   const { isLoading } = useLoading();
   const { scrollTo } = useSmoothScroll();
   const role = useTypewriter({ words: PERSONAL.roles, enabled: !isLoading, startDelay: 500 });
+
+  // Three.js is ~237KB gzipped and mobile Lighthouse simulates a slow CPU, so
+  // phones get the CSS visual instead. Because this gate wraps the lazy import,
+  // the chunk is never even requested there — not merely hidden.
+  const isSmallScreen = useMediaQuery("(max-width: 767px)");
+  const reducedMotion = useReducedMotion();
+  const useWebGL = !isSmallScreen && !reducedMotion;
 
   return (
     <section
@@ -141,9 +150,13 @@ export function Hero() {
           transition={{ duration: 1.4, delay: 0.3, ease: EASE }}
           className="relative order-first h-[320px] sm:h-[420px] lg:order-last lg:h-[620px]"
         >
-          <Suspense fallback={null}>
-            <HeroCanvas />
-          </Suspense>
+          {useWebGL ? (
+            <Suspense fallback={<HeroVisualFallback />}>
+              <HeroCanvas />
+            </Suspense>
+          ) : (
+            <HeroVisualFallback />
+          )}
         </motion.div>
       </div>
 
