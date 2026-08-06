@@ -1,5 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { MotionConfig } from "framer-motion";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { LoadingProvider } from "@/context/LoadingContext";
 import { SmoothScrollProvider } from "@/context/SmoothScrollProvider";
 import { Loader } from "@/components/shared/Loader";
@@ -15,6 +16,23 @@ import { Footer } from "@/components/layout/Footer";
 import { Home } from "@/pages/Home";
 import { ProjectDetail } from "@/pages/ProjectDetail";
 import { NotFound } from "@/pages/NotFound";
+
+/**
+ * Vercel Speed Insights. Renders nothing — it samples real-user Core Web Vitals
+ * and beacons them out, and only reports from a Vercel deployment.
+ *
+ * Kept as its own component so the `useLocation` subscription lives here rather
+ * than in App, where a route change would re-render the navbar, footer, loader
+ * and pointer effects along with it.
+ *
+ * `route` is passed explicitly: without it the seven project pages would each
+ * become their own row, splitting the sample size instead of aggregating.
+ */
+function VitalsReporter() {
+  const { pathname } = useLocation();
+  const route = pathname.startsWith("/projects/") ? "/projects/[slug]" : pathname;
+  return <SpeedInsights route={route} />;
+}
 
 function App() {
   return (
@@ -46,6 +64,8 @@ function App() {
           <BackToTop />
           <WhatsAppChat />
           <CommandPalette />
+
+          <VitalsReporter />
         </SmoothScrollProvider>
       </LoadingProvider>
     </MotionConfig>
