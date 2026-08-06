@@ -4,7 +4,7 @@ Personal portfolio of a Software Engineer and Full Stack Developer. Single-page
 site with dedicated detail pages for each project, an animated 3D hero, smooth
 scrolling, a command palette, and a working contact form.
 
-**Live:** _not deployed yet_
+**Live:** <https://portfolio-neon-psi-80.vercel.app>
 
 ---
 
@@ -108,11 +108,13 @@ Configs for the common hosts are already committed:
    ```bash
    npm run sitemap https://your-domain.com
    ```
-3. Make the social image URLs absolute in `index.html` (`og:image`,
-   `twitter:image`) and add `og:url` + `<link rel="canonical">`. Relative paths
-   work on LinkedIn and WhatsApp but are not spec-compliant.
+3. Update every absolute URL in `index.html` (`canonical`, `og:url`, `og:image`,
+   `twitter:image`) to the new domain. They cannot be relative — X/Twitter
+   rejects relative image paths, and canonical has no relative form.
 4. Add the domain to **EmailJS → Account → Security** if on a paid plan; the
    allowlist is not available on the free tier.
+5. Turn off **Settings → Deployment Protection** on Vercel, or the site returns
+   a Vercel login page to anyone who isn't signed in.
 
 ## Accessibility
 
