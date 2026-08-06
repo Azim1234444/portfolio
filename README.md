@@ -4,7 +4,7 @@ Personal portfolio of a Software Engineer and Full Stack Developer. Single-page
 site with dedicated detail pages for each project, an animated 3D hero, smooth
 scrolling, a command palette, and a working contact form.
 
-**Live:** <https://portfolio-neon-psi-80.vercel.app>
+**Live:** <https://muhammadnurazim.vercel.app>
 
 ---
 
