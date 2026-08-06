@@ -1,0 +1,38 @@
+# SPA routing for Apache / XAMPP.
+#
+# The app uses BrowserRouter, so paths like /projects/vr-cinema exist only in
+# the client-side router — there is no such file on disk. Without this rewrite
+# Apache returns its own 404 and React never boots, which breaks every shared
+# or bookmarked project link.
+#
+# Anything that IS a real file or directory (assets, resume.pdf, robots.txt)
+# is served normally; everything else falls through to index.html.
+# The substitution is deliberately relative (`index.html`, not `/index.html`).
+# In a per-directory context Apache resolves it against the directory holding
+# this file, so the same rule works whether the site is served from a domain
+# root or from a subfolder like /myPortfolio/dist/ under XAMPP.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . index.html [L]
+</IfModule>
+
+# Hashed asset filenames change on every build, so they can be cached forever.
+# index.html must never be cached, or visitors keep booting an old bundle that
+# references assets which no longer exist.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2|webp|png|jpg|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  # Defence-in-depth. There is no auth or user state here, but these are free.
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>

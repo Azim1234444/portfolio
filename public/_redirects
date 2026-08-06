@@ -1,0 +1,3 @@
+# Netlify SPA fallback — serve index.html for any path the router owns.
+# The 200 (rather than 301) keeps the URL intact so React Router can read it.
+/*  /index.html  200
