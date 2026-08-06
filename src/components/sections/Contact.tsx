@@ -121,26 +121,52 @@ export function Contact() {
             transition={{ duration: 0.7, ease: EASE }}
             className="glass-strong rounded-3xl p-7 sm:p-9"
           >
+            {/* The `name` attributes are the EmailJS template variables — sendForm
+                posts them verbatim. They must stay in step with the template
+                ({{name}}, {{email}}, {{title}}, {{message}}, {{time}}) or the
+                email arrives with blanks where the content should be. */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="user_name">Name</Label>
-                <Input id="user_name" name="user_name" placeholder="Your name" required />
+                <Label htmlFor="contact-name">Name</Label>
+                <Input
+                  id="contact-name"
+                  name="name"
+                  autoComplete="name"
+                  placeholder="Your name"
+                  required
+                />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="user_email">Email</Label>
-                <Input id="user_email" name="user_email" type="email" placeholder="you@email.com" required />
+                <Label htmlFor="contact-email">Email</Label>
+                <Input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder="you@email.com"
+                  required
+                />
               </div>
             </div>
 
             <div className="mt-6 space-y-2">
-              <Label htmlFor="subject">Subject</Label>
-              <Input id="subject" name="subject" placeholder="What's this about?" required />
+              <Label htmlFor="contact-title">Subject</Label>
+              <Input id="contact-title" name="title" placeholder="What's this about?" required />
             </div>
 
             <div className="mt-6 space-y-2">
-              <Label htmlFor="message">Message</Label>
-              <Textarea id="message" name="message" placeholder="Tell me about your project or opportunity…" required />
+              <Label htmlFor="contact-message">Message</Label>
+              <Textarea
+                id="contact-message"
+                name="message"
+                placeholder="Tell me about your project or opportunity…"
+                required
+              />
             </div>
+
+            {/* The template prints {{time}} under the sender's name. Nothing else
+                supplies it, so it is stamped here just before the send. */}
+            <input type="hidden" name="time" />
 
             {/* Honeypot — off-screen rather than display:none, since some bots
                 skip hidden fields. Never focusable, never announced. */}

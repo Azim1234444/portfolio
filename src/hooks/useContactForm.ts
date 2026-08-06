@@ -49,6 +49,15 @@ export function useContactForm() {
     setStatus("sending");
     setMessage("");
 
+    // Stamp {{time}} at submit, in the sender's own locale and timezone.
+    const timeField = formRef.current.elements.namedItem("time");
+    if (timeField instanceof HTMLInputElement) {
+      timeField.value = new Date().toLocaleString(undefined, {
+        dateStyle: "medium",
+        timeStyle: "short",
+      });
+    }
+
     try {
       await emailjs.sendForm(SERVICE_ID!, TEMPLATE_ID!, formRef.current, { publicKey: PUBLIC_KEY });
       setStatus("success");
