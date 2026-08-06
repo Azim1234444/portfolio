@@ -1,32 +1,129 @@
-# React + TypeScript + Vite
+# Portfolio — Muhammad Nur Azim Abdul Halim
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Personal portfolio of a Software Engineer and Full Stack Developer. Single-page
+site with dedicated detail pages for each project, an animated 3D hero, smooth
+scrolling, a command palette, and a working contact form.
 
-Currently, two official plugins are available:
+**Live:** _not deployed yet_
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| | |
+|---|---|
+| **Framework** | React 19, TypeScript, Vite 8 |
+| **Styling** | Tailwind CSS v4, shadcn/ui, Radix primitives |
+| **Motion** | Framer Motion, GSAP + ScrollTrigger, Lenis smooth scroll |
+| **3D** | React Three Fiber, drei, Three.js |
+| **Routing** | React Router v7 |
+| **Email** | EmailJS (browser SDK) |
+| **Lint** | Oxlint |
 
-## Expanding the Oxlint configuration
+## Getting started
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+cp .env.example .env     # then fill in the EmailJS values below
+npm run dev              # http://localhost:5173
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+| Script | Purpose |
+|---|---|
+| `npm run dev` | Dev server with HMR |
+| `npm run build` | Type-check (`tsc -b`) then build to `dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` | Oxlint |
+| `npm run sitemap <url>` | Generate `sitemap.xml` + `robots.txt` for a domain |
+
+## Environment
+
+Create `.env` (gitignored) with the values from your
+[EmailJS dashboard](https://dashboard.emailjs.com):
+
+```ini
+VITE_EMAILJS_SERVICE_ID=service_xxxxxxx
+VITE_EMAILJS_TEMPLATE_ID=template_xxxxxxx
+VITE_EMAILJS_PUBLIC_KEY=xxxxxxxxxxxxxxxxx
+```
+
+Without these the contact form still renders, but tells visitors to email
+directly instead of failing silently.
+
+> `VITE_*` variables are inlined into the client bundle at build time and are
+> therefore public. That is expected for the browser SDK — never put the EmailJS
+> **Private Key** here.
+
+### Template variables
+
+`emailjs.sendForm` posts each field's `name` attribute as a template variable,
+so the EmailJS template and [`Contact.tsx`](src/components/sections/Contact.tsx)
+must agree. Current contract:
+
+```
+{{name}}   {{email}}   {{title}}   {{message}}   {{time}}
+```
+
+`{{time}}` is stamped by the client on submit — EmailJS does not supply it.
+A mismatch here fails quietly: the email still sends, just with blank fields.
+
+## Project structure
+
+```
+src/
+├── components/
+│   ├── layout/      Navbar, Footer
+│   ├── sections/    Hero, About, Experience, Projects, Skills, …
+│   ├── shared/      Lightbox, CommandPalette, Loader, PointerFX, …
+│   ├── three/       React Three Fiber hero scene
+│   └── ui/          shadcn primitives
+├── context/         LoadingContext, SmoothScrollProvider
+├── data/            Content lives here — edit these, not the components
+├── hooks/
+├── pages/           Home, ProjectDetail, NotFound
+└── utils/
+```
+
+**Adding a project:** append an entry to [`src/data/projects.ts`](src/data/projects.ts).
+The card, detail page, gallery lightbox and sitemap all derive from it. Images
+go in `src/assets/images/` as WebP.
+
+## Deploying
+
+The app uses `BrowserRouter`, so the host **must** rewrite unknown paths to
+`index.html` — otherwise `/projects/vr-cinema` returns a 404 on direct load.
+Configs for the common hosts are already committed:
+
+| Host | File |
+|---|---|
+| Vercel | `vercel.json` |
+| Netlify | `public/_redirects` |
+| Apache / XAMPP / Hostinger | `public/.htaccess` |
+
+### Checklist
+
+1. Set the three `VITE_EMAILJS_*` variables in the host's environment settings —
+   `.env` is gitignored and never uploaded.
+2. Generate the sitemap for the real domain:
+   ```bash
+   npm run sitemap https://your-domain.com
+   ```
+3. Make the social image URLs absolute in `index.html` (`og:image`,
+   `twitter:image`) and add `og:url` + `<link rel="canonical">`. Relative paths
+   work on LinkedIn and WhatsApp but are not spec-compliant.
+4. Add the domain to **EmailJS → Account → Security** if on a paid plan; the
+   allowlist is not available on the free tier.
+
+## Accessibility
+
+- `prefers-reduced-motion` is honoured in both engines — CSS keyframes via a
+  global override, and every Framer component via `MotionConfig`.
+- The image lightbox traps focus, supports arrow keys and Escape, and restores
+  focus to the thumbnail that opened it.
+- The custom cursor only replaces the native one where it is actually drawn
+  (fine pointer, ≥768px, motion allowed).
+
+## Licence
+
+Source is available for reference. Content, imagery and personal branding are
+not licensed for reuse.
