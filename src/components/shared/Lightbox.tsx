@@ -133,7 +133,7 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
               onClick={onClose}
               aria-label="Close image viewer"
               data-cursor="hover"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-ivory transition-colors hover:bg-white/[0.12]"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-ivory transition-colors hover:bg-white/[0.12]"
             >
               <X className="h-4 w-4" />
             </button>

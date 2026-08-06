@@ -41,11 +41,11 @@ export function Hero() {
       <div aria-hidden className="absolute inset-0 bg-grid mask-fade-bottom opacity-40" />
       <div
         aria-hidden
-        className="absolute left-1/2 top-[-10%] h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-blue-500/20 blur-[140px]"
+        className="absolute left-1/2 top-[-10%] h-[min(560px,70vw)] w-[min(560px,100vw)] -translate-x-1/2 rounded-full bg-blue-500/20 blur-[90px] sm:blur-[140px]"
       />
       <div
         aria-hidden
-        className="absolute right-[-10%] bottom-[-10%] h-[460px] w-[460px] rounded-full bg-violet-500/20 blur-[140px]"
+        className="absolute right-[-10%] bottom-[-10%] h-[min(460px,60vw)] w-[min(460px,80vw)] rounded-full bg-violet-500/20 blur-[90px] sm:blur-[140px]"
       />
       <ParticlesBackground density={44} />
 

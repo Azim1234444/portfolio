@@ -151,7 +151,7 @@ export function ProjectCard({ project, index }: { project: ProjectItem; index: n
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`${project.title} on GitHub`}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-mist transition-colors hover:border-white/25 hover:text-ivory"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-mist transition-colors hover:border-white/25 hover:text-ivory"
               >
                 <FiGithub className="h-4 w-4" />
               </a>
@@ -162,14 +162,14 @@ export function ProjectCard({ project, index }: { project: ProjectItem; index: n
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`${project.title} live demo`}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-mist transition-colors hover:border-white/25 hover:text-ivory"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-mist transition-colors hover:border-white/25 hover:text-ivory"
               >
                 <FiArrowUpRight className="h-4 w-4" />
               </a>
             )}
             <Link
               to={`/projects/${project.slug}`}
-              className="ml-auto flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium text-ivory transition-colors hover:text-neon-blue"
+              className="ml-auto flex min-h-11 items-center gap-1.5 rounded-full px-4 text-sm font-medium text-ivory transition-colors hover:text-neon-blue"
             >
               Read More
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />

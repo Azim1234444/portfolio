@@ -82,6 +82,13 @@
     background: var(--color-void);
     color-scheme: dark;
     scroll-behavior: auto;
+    /* The ambient blur orbs are deliberately larger than the viewport and bleed
+       off-screen. `body` alone did not contain them — the root element still
+       grew, so phones got a horizontal scrollbar and the fixed header sized
+       itself to the overflowed width instead of the viewport.
+       `clip` rather than `hidden`: it clips without creating a scroll container,
+       so Lenis and position:sticky keep working. */
+    overflow-x: clip;
   }
 
   html.lenis {

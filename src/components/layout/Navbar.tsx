@@ -79,7 +79,7 @@ export function Navbar() {
                       handleNavClick(link.href);
                     }}
                     className={cn(
-                      "relative z-10 block rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300",
+                      "relative z-10 flex min-h-11 items-center rounded-full px-4 text-sm font-medium transition-colors duration-300",
                       isActive ? "text-void" : "text-mist hover:text-ivory"
                     )}
                   >
@@ -110,7 +110,7 @@ export function Navbar() {
               onClick={() =>
                 document.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }))
               }
-              className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-fog transition hover:border-white/20 hover:text-ivory sm:flex"
+              className="hidden min-h-11 items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 text-xs text-fog transition hover:border-white/20 hover:text-ivory sm:flex"
               aria-label="Open command palette"
             >
               <CommandIcon className="h-3.5 w-3.5" />
@@ -121,7 +121,7 @@ export function Navbar() {
               type="button"
               data-cursor="hover"
               onClick={() => setMobileOpen(true)}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-ivory lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-ivory lg:hidden"
               aria-label="Open menu"
             >
               <Menu className="h-5 w-5" />
@@ -144,7 +144,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-ivory"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-ivory"
                 aria-label="Close menu"
               >
                 <X className="h-5 w-5" />
@@ -205,7 +205,7 @@ function IconLink({
         target={href.startsWith("http") ? "_blank" : undefined}
         rel="noreferrer"
         aria-label={label}
-        className="flex h-9 w-9 items-center justify-center rounded-full text-mist transition-colors hover:bg-white/8 hover:text-ivory"
+        className="flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:bg-white/8 hover:text-ivory"
       >
         <Icon className="h-4 w-4" />
       </a>

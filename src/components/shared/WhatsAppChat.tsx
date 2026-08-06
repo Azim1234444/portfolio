@@ -92,7 +92,7 @@ export function WhatsAppChat() {
                 onClick={() => setOpen(false)}
                 aria-label="Close WhatsApp chat"
                 data-cursor="hover"
-                className="ml-auto flex h-8 w-8 items-center justify-center rounded-full text-mist transition-colors hover:bg-white/10 hover:text-ivory"
+                className="ml-auto flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:bg-white/10 hover:text-ivory"
               >
                 <X className="h-4 w-4" />
               </button>

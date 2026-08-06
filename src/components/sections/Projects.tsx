@@ -7,7 +7,7 @@ export function Projects() {
     <section id="projects" className="relative py-28 sm:py-36">
       <div
         aria-hidden
-        className="absolute left-1/2 top-1/3 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-blue-500/[0.06] blur-[160px]"
+        className="absolute left-1/2 top-1/3 h-[min(500px,60vh)] w-[min(900px,100vw)] -translate-x-1/2 rounded-full bg-blue-500/[0.06] blur-[100px] sm:blur-[160px]"
       />
       <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <SectionHeading

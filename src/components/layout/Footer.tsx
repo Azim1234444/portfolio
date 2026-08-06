@@ -55,7 +55,7 @@ export function Footer() {
                       goToSection(link.href);
                     }}
                     data-cursor="hover"
-                    className="text-sm text-mist transition-colors hover:text-ivory"
+                    className="inline-flex min-h-11 items-center text-sm text-mist transition-colors hover:text-ivory"
                   >
                     {link.label}
                   </a>
@@ -73,7 +73,7 @@ export function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="GitHub"
-                  className="glass flex h-10 w-10 items-center justify-center rounded-full text-mist transition-colors hover:text-ivory"
+                  className="glass flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:text-ivory"
                 >
                   <FiGithub className="h-4 w-4" />
                 </a>
@@ -84,7 +84,7 @@ export function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="LinkedIn"
-                  className="glass flex h-10 w-10 items-center justify-center rounded-full text-mist transition-colors hover:text-ivory"
+                  className="glass flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:text-ivory"
                 >
                   <FiLinkedin className="h-4 w-4" />
                 </a>
@@ -93,7 +93,7 @@ export function Footer() {
                 <a
                   href={SOCIAL_LINKS.email}
                   aria-label="Email"
-                  className="glass flex h-10 w-10 items-center justify-center rounded-full text-mist transition-colors hover:text-ivory"
+                  className="glass flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:text-ivory"
                 >
                   <FiMail className="h-4 w-4" />
                 </a>
@@ -109,7 +109,7 @@ export function Footer() {
             type="button"
             onClick={() => goToSection(0)}
             data-cursor="hover"
-            className="flex items-center gap-1.5 transition-colors hover:text-ivory"
+            className="flex min-h-11 items-center gap-1.5 transition-colors hover:text-ivory"
           >
             Back to top <FiArrowUp className="h-3 w-3" />
           </button>

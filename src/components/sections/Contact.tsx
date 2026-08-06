@@ -21,7 +21,7 @@ export function Contact() {
     <section id="contact" className="relative py-28 sm:py-36">
       <div
         aria-hidden
-        className="absolute bottom-0 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-violet-500/[0.08] blur-[160px]"
+        className="absolute bottom-0 left-1/2 h-[min(420px,50vh)] w-[min(820px,100vw)] -translate-x-1/2 rounded-full bg-violet-500/[0.08] blur-[100px] sm:blur-[160px]"
       />
       <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <SectionHeading
@@ -43,7 +43,7 @@ export function Contact() {
               <a
                 href={SOCIAL_LINKS.email}
                 data-cursor="hover"
-                className="mt-3 block text-balance font-display text-2xl font-medium text-ivory transition-colors hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-400 hover:to-violet-400 sm:text-3xl"
+                className="mt-3 flex min-h-11 items-center text-balance font-display text-2xl font-medium text-ivory transition-colors hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-400 hover:to-violet-400 sm:text-3xl"
               >
                 {PERSONAL.email}
               </a>
