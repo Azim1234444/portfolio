@@ -58,12 +58,14 @@ export function Navbar() {
               e.preventDefault();
               handleNavClick("#home");
             }}
-            className="flex items-center gap-2 rounded-full px-3 py-1.5 font-display text-lg font-semibold tracking-tight text-ivory"
+            aria-label="Muhammad Nur Azim — back to top"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ivory"
           >
-            <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-violet-500 text-sm text-white">
+            {/* shrink-0 and aspect-square keep this a circle: as a flex child it
+                was being squeezed into an oval once the nav ran short of room. */}
+            <span className="flex aspect-square w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-violet-500 font-display text-sm font-semibold text-white">
               AH
             </span>
-            <span className="hidden sm:inline">Azim Halim</span>
           </a>
 
           <ul className="hidden items-center gap-1 lg:flex">
