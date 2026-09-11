@@ -1,6 +1,13 @@
 import type { ProjectItem } from "@/types";
 import trustedEmpireHome from "@/assets/images/trusted-empire-home.jpg";
+import trustedEmpirePlans from "@/assets/images/trusted-empire-plans.jpg";
+import trustedEmpireHowItWorks from "@/assets/images/trusted-empire-how-it-works.jpg";
+import trustedEmpireSupport from "@/assets/images/trusted-empire-support.jpg";
 import corporateEstatesHome from "@/assets/images/corporate-estates-home.jpg";
+import corporateEstatesUnitTypes from "@/assets/images/corporate-estates-unit-types.jpg";
+import corporateEstatesGallery from "@/assets/images/corporate-estates-gallery.jpg";
+import corporateEstatesLayout from "@/assets/images/corporate-estates-layout.jpg";
+import corporateEstatesContact from "@/assets/images/corporate-estates-contact.jpg";
 import uptimeproHome from "@/assets/images/uptimepro-home.webp";
 import uptimeproNews from "@/assets/images/uptimepro-news.webp";
 import uptimeproSolutions from "@/assets/images/uptimepro-solutions.webp";
@@ -79,6 +86,18 @@ export const PROJECTS: ProjectItem[] = [
         src: trustedEmpireHome,
         caption: "Homepage — entertainment plans, pricing and customer support entry points",
       },
+      {
+        src: trustedEmpirePlans,
+        caption: "Subscription catalogue — streaming and IPTV plans with MYR pricing",
+      },
+      {
+        src: trustedEmpireHowItWorks,
+        caption: "How it works — guided plan selection, payment and verification steps",
+      },
+      {
+        src: trustedEmpireSupport,
+        caption: "Help center — Netflix guides with WhatsApp and Telegram support",
+      },
     ],
     gradient: ["#c7f464", "#84cc16"],
     featured: true,
@@ -113,6 +132,22 @@ export const PROJECTS: ProjectItem[] = [
       {
         src: corporateEstatesHome,
         caption: "Homepage — Corporate Estates hero and development overview",
+      },
+      {
+        src: corporateEstatesUnitTypes,
+        caption: "Unit types — detailed Type A and Type B specifications",
+      },
+      {
+        src: corporateEstatesGallery,
+        caption: "Property gallery — architectural renders and building specifications",
+      },
+      {
+        src: corporateEstatesLayout,
+        caption: "Project layout — development plan and road frontage details",
+      },
+      {
+        src: corporateEstatesContact,
+        caption: "Pricing and enquiries — lead-generation form and property contact",
       },
     ],
     gradient: ["#26322d", "#d9b97d"],
