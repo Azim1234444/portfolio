@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Loader2, MapPin, Send, CheckCircle2, AlertCircle } from "lucide-react";
+import { Loader2, Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { SectionHeading } from "@/components/shared/SectionHeading";
@@ -47,11 +47,6 @@ export function Contact() {
               >
                 {PERSONAL.email}
               </a>
-              <div className="mt-6 flex items-start gap-2 text-sm text-mist">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-fog" />
-                <span className="text-balance">{PERSONAL.address}</span>
-              </div>
-
               <div className="mt-8 flex items-center gap-3">
                 <Magnetic>
                   <a
@@ -100,16 +95,6 @@ export function Contact() {
               </div>
             </div>
 
-            <div className="glass relative h-64 overflow-hidden rounded-3xl">
-              <iframe
-                title="Location map — Sri Gading, Batu Pahat, Johor"
-                src="https://www.google.com/maps?q=Kampung+Seri+Bengkal,+Sri+Gading,+83300+Batu+Pahat,+Johor,+Malaysia&z=13&output=embed"
-                className="h-full w-full grayscale invert-[92%] contrast-[1.05] hue-rotate-180"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-              <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-border" />
-            </div>
           </FadeIn>
 
           <motion.form
