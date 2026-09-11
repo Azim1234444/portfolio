@@ -4,6 +4,7 @@ import { Experience } from "@/components/sections/Experience";
 import { Projects } from "@/components/sections/Projects";
 import { Skills } from "@/components/sections/Skills";
 import { Certifications } from "@/components/sections/Certifications";
+import { CustomerFeedback } from "@/components/sections/CustomerFeedback";
 import { Contact } from "@/components/sections/Contact";
 
 export function Home() {
@@ -15,6 +16,7 @@ export function Home() {
       <Projects />
       <Skills />
       <Certifications />
+      <CustomerFeedback />
       <Contact />
     </>
   );
