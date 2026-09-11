@@ -1,4 +1,6 @@
 import type { ProjectItem } from "@/types";
+import trustedEmpireHome from "@/assets/images/trusted-empire-home.jpg";
+import corporateEstatesHome from "@/assets/images/corporate-estates-home.jpg";
 import uptimeproHome from "@/assets/images/uptimepro-home.webp";
 import uptimeproNews from "@/assets/images/uptimepro-news.webp";
 import uptimeproSolutions from "@/assets/images/uptimepro-solutions.webp";
@@ -45,6 +47,77 @@ import ipTables from "@/assets/images/ip-tables.webp";
 import ipEdit from "@/assets/images/ip-edit.webp";
 
 export const PROJECTS: ProjectItem[] = [
+  {
+    slug: "trusted-empire-subscription-platform",
+    title: "Trusted Empire — Digital Subscription Platform",
+    category: "E-Commerce & Web",
+    year: "2026",
+    tags: [
+      "React",
+      "Vite",
+      "Responsive Design",
+      "Product Catalogue",
+      "Order Workflow",
+      "Payment Verification",
+      "WhatsApp",
+      "Telegram",
+    ],
+    description:
+      "A responsive digital subscription storefront for Malaysian customers to compare entertainment plans, place orders and submit payment receipts for admin verification — with direct WhatsApp and Telegram support built into the customer journey.",
+    highlights: [
+      "Subscription catalogue for Netflix, HBO Max, Amazon Prime, VIU, iQIYI and IPTV",
+      "Clear plan, duration and MYR pricing options designed for quick comparison",
+      "Guided checkout flow with QR or CIMB payment instructions",
+      "Receipt upload and manual admin verification for submitted orders",
+      "WhatsApp support and Telegram community links integrated throughout the site",
+      "Responsive dark interface optimized for mobile and desktop browsing",
+    ],
+    demo: "https://abitrustedempire.com/",
+    image: trustedEmpireHome,
+    gallery: [
+      {
+        src: trustedEmpireHome,
+        caption: "Homepage — entertainment plans, pricing and customer support entry points",
+      },
+    ],
+    gradient: ["#c7f464", "#84cc16"],
+    featured: true,
+  },
+  {
+    slug: "corporate-estates-property-website",
+    title: "Corporate Estates — Property Landing Page",
+    category: "Property Website",
+    year: "2026",
+    tags: [
+      "React",
+      "Vite",
+      "Responsive Design",
+      "SEO",
+      "Property Showcase",
+      "Lead Generation",
+      "WhatsApp",
+    ],
+    description:
+      "A polished property marketing website for the Corporate Estates three-storey semi-detached development in Alam Impian, presenting unit specifications, architectural visuals and project layouts through a focused lead-generation experience.",
+    highlights: [
+      "Immersive hero and development overview built around architectural visuals",
+      "Detailed Type A and Type B unit specifications with built-up and parking information",
+      "Responsive gallery with full-size property and project layout viewing",
+      "Validated property enquiry form with unit-type selection",
+      "Direct WhatsApp enquiry flows tailored to the selected unit",
+      "Search and social metadata configured for discoverability and rich link previews",
+    ],
+    demo: "https://www.syazproperty.com/",
+    image: corporateEstatesHome,
+    gallery: [
+      {
+        src: corporateEstatesHome,
+        caption: "Homepage — Corporate Estates hero and development overview",
+      },
+    ],
+    gradient: ["#26322d", "#d9b97d"],
+    featured: true,
+  },
   {
     slug: "permit-to-work-system",
     title: "PTW Guardian — Permit-to-Work System",

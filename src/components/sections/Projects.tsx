@@ -13,7 +13,7 @@ export function Projects() {
         <SectionHeading
           eyebrow="Selected Work"
           title="Featured projects."
-          description="A mix of full-stack platforms, enterprise systems and a 3D game — each shaped by real requirements and real users."
+          description="A mix of live client websites, full-stack platforms, enterprise systems and interactive 3D work — each shaped by real requirements and real users."
         />
 
         <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
