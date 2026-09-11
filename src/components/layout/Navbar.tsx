@@ -47,7 +47,7 @@ export function Navbar() {
       >
         <nav
           className={cn(
-            "flex w-full max-w-5xl items-center justify-between gap-4 rounded-full px-3 py-2 transition-all duration-500",
+            "flex w-full max-w-6xl items-center justify-between gap-4 rounded-full px-3 py-2 transition-all duration-500",
             scrolled ? "glass-strong shadow-[0_8px_40px_-16px_rgba(0,0,0,0.7)]" : "bg-transparent"
           )}
         >
@@ -68,7 +68,7 @@ export function Navbar() {
             </span>
           </a>
 
-          <ul className="hidden items-center gap-1 lg:flex">
+          <ul className="hidden items-center gap-1 xl:flex">
             {NAV_LINKS.map((link) => {
               const id = link.href.replace("#", "");
               const isActive = activeSection === id;
@@ -128,7 +128,7 @@ export function Navbar() {
               type="button"
               data-cursor="hover"
               onClick={() => setMobileOpen(true)}
-              className="flex h-11 w-11 items-center justify-center rounded-full text-ivory lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-ivory xl:hidden"
               aria-label="Open menu"
             >
               <Menu className="h-5 w-5" />
@@ -144,7 +144,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: EASE }}
-            className="fixed inset-0 z-[90] flex flex-col bg-void/98 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-[90] flex flex-col bg-void/98 backdrop-blur-xl xl:hidden"
           >
             <div className="flex items-center justify-between px-6 py-5">
               <span className="font-display text-lg font-semibold text-ivory">Menu</span>
