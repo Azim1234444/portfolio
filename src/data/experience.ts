@@ -5,7 +5,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     role: "Software Engineer",
     company: "UpTime Pro Engineering Sdn. Bhd.",
     period: "March 2026 — July 2026",
-    location: "Malaysia",
+    location: "Puchong, Selangor",
     summary:
       "Developed a web-based Permit-to-Work (PTW) Management System prototype to digitize permit request handling, approval workflows and workplace safety management processes.",
     highlights: [
