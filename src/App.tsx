@@ -17,6 +17,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Home } from "@/pages/Home";
 import { ProjectDetail } from "@/pages/ProjectDetail";
 import { NotFound } from "@/pages/NotFound";
+import { Analytics } from '@vercel/analytics/react';
 
 /**
  * Vercel Speed Insights. Renders nothing — it samples real-user Core Web Vitals
@@ -70,6 +71,7 @@ function App() {
             <CommandPalette />
 
             <VitalsReporter />
+            <Analytics />
           </SmoothScrollProvider>
         </LoadingProvider>
       </ThemeProvider>
