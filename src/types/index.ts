@@ -65,6 +65,7 @@ export interface CertificationItem {
   year: string;
   category: string;
   image: string;
+  certificateUrl?: string;
   credentialUrl?: string;
 }
 
