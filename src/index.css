@@ -10,46 +10,42 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
   /* ---- Core palette ----
-     Values here are the dark defaults. The light theme overrides these same
-     custom properties in @layer base, so every generated utility follows
-     automatically — `bg-void` resolves through var(--color-void) either way. */
-  --color-void: #030304;
-  --color-ink: #08080b;
-  --color-surface: #0c0c11;
-  --color-surface-2: #121218;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.16);
+     High-contrast editorial monochrome dark defaults. The light theme overrides
+     these same custom properties in @layer base, so every generated utility
+     follows automatically. */
+  --color-void: #000000;
+  --color-ink: #050505;
+  --color-surface: #0a0a0c;
+  --color-surface-2: #111114;
+  --color-border: rgba(255, 255, 255, 0.11);
+  --color-border-strong: rgba(255, 255, 255, 0.24);
 
-  /* Surface tints. These replace the scattered bg-white/[0.03] literals, which
-     could not follow a theme swap — on a light background a white tint is
-     invisible, so they need to invert to a dark tint. */
+  /* Surface tints. */
   --color-tint: rgba(255, 255, 255, 0.03);
   --color-tint-2: rgba(255, 255, 255, 0.06);
-  --color-tint-3: rgba(255, 255, 255, 0.1);
+  --color-tint-3: rgba(255, 255, 255, 0.11);
 
-  --color-ivory: #f6f5f8;
-  --color-mist: #a6a5b3;
-  /* Was #6d6c7c, which measured 4.01:1 against the page — under the 4.5:1 that
-     WCAG AA asks for at this text size. Lightened just enough to clear it. */
-  --color-fog: #7d7c8d;
+  --color-ivory: #ffffff;
+  --color-mist: #a1a1aa;
+  --color-fog: #71717a;
 
-  --color-blue-400: #6fa8ff;
-  --color-blue-500: #3d7dff;
-  --color-blue-600: #2557e0;
+  --color-blue-400: #d4d4d8;
+  --color-blue-500: #a1a1aa;
+  --color-blue-600: #71717a;
 
-  --color-violet-400: #b083ff;
-  --color-violet-500: #8b5cf6;
-  --color-violet-600: #6d28d9;
+  --color-violet-400: #e4e4e7;
+  --color-violet-500: #a1a1aa;
+  --color-violet-600: #52525b;
 
-  --color-neon-blue: #4f9cff;
-  --color-neon-violet: #a855f7;
+  --color-neon-blue: #ffffff;
+  --color-neon-violet: #d4d4d8;
 
   /* ---- Radii ---- */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.875rem;
-  --radius-lg: 1.25rem;
-  --radius-xl: 1.75rem;
-  --radius-2xl: 2.5rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
 
   /* ---- Easing ---- */
   --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
@@ -87,41 +83,30 @@
 
 /* ---------------------------------------------------------------------------
    Light theme.
-
-   Overrides the same custom properties defined in @theme, so every Tailwind
-   utility built from them inverts without touching a single class name.
-
-   `data-theme` is stamped on <html> by ThemeProvider and always wins, so an
-   explicit choice beats the OS setting in both directions. The media query
-   only applies when the user has expressed no preference.
    --------------------------------------------------------------------------- */
 @layer base {
   :root[data-theme="light"] {
-    --color-void: #f6f6fa;
-    --color-ink: #ffffff;
-    --color-surface: #ffffff;
-    --color-surface-2: #f0f0f5;
-    --color-border: rgba(12, 12, 22, 0.1);
-    --color-border-strong: rgba(12, 12, 22, 0.18);
+    --color-void: #ffffff;
+    --color-ink: #fafafa;
+    --color-surface: #f4f4f5;
+    --color-surface-2: #e4e4e7;
+    --color-border: rgba(9, 9, 11, 0.12);
+    --color-border-strong: rgba(9, 9, 11, 0.25);
 
-    --color-tint: rgba(12, 12, 22, 0.035);
-    --color-tint-2: rgba(12, 12, 22, 0.06);
-    --color-tint-3: rgba(12, 12, 22, 0.09);
+    --color-tint: rgba(9, 9, 11, 0.03);
+    --color-tint-2: rgba(9, 9, 11, 0.06);
+    --color-tint-3: rgba(9, 9, 11, 0.1);
 
-    /* Text. `ivory` is the primary tone and simply becomes near-black; naming
-       it after the dark theme is the cost of not renaming 200 call sites. */
-    --color-ivory: #101018;
-    --color-mist: #45455a;
-    --color-fog: #6b6b82;
+    --color-ivory: #09090b;
+    --color-mist: #52525b;
+    --color-fog: #71717a;
 
-    /* Accents darken so they still clear 4.5:1 against a light background —
-       the neon tones used on dark are far too pale here. */
-    --color-blue-400: #2563eb;
-    --color-blue-500: #1d4ed8;
-    --color-violet-400: #7c3aed;
-    --color-violet-500: #6d28d9;
-    --color-neon-blue: #1d4ed8;
-    --color-neon-violet: #7c3aed;
+    --color-blue-400: #27272a;
+    --color-blue-500: #18181b;
+    --color-violet-400: #3f3f46;
+    --color-violet-500: #27272a;
+    --color-neon-blue: #09090b;
+    --color-neon-violet: #3f3f46;
 
     color-scheme: light;
   }
@@ -134,12 +119,6 @@
     background: var(--color-void);
     color-scheme: dark;
     scroll-behavior: auto;
-    /* The ambient blur orbs are deliberately larger than the viewport and bleed
-       off-screen. `body` alone did not contain them — the root element still
-       grew, so phones got a horizontal scrollbar and the fixed header sized
-       itself to the overflowed width instead of the viewport.
-       `clip` rather than `hidden`: it clips without creating a scroll container,
-       so Lenis and position:sticky keep working. */
     overflow-x: clip;
   }
 
@@ -149,9 +128,7 @@
 
   body {
     @apply bg-void text-ivory font-sans antialiased;
-    background: radial-gradient(ellipse 90% 60% at 50% -10%, var(--wash-a), transparent 60%),
-      radial-gradient(ellipse 70% 50% at 100% 30%, var(--wash-b), transparent 60%),
-      var(--color-void);
+    background: var(--color-void);
     min-height: 100svh;
     overflow-x: clip;
     font-synthesis: none;
@@ -160,33 +137,21 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  :root {
-    --wash-a: rgba(79, 156, 255, 0.14);
-    --wash-b: rgba(168, 85, 247, 0.1);
-  }
-  /* The same wash at dark-theme strength turns muddy grey on white, so it is
-     pulled back and slightly re-tinted rather than reused as-is. */
-  :root[data-theme="light"] {
-    --wash-a: rgba(79, 130, 255, 0.1);
-    --wash-b: rgba(168, 85, 247, 0.07);
-  }
-
   ::selection {
-    background: rgba(79, 156, 255, 0.32);
-    color: var(--color-ivory);
+    background: var(--color-ivory);
+    color: var(--color-void);
   }
 
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: transparent;
+    background: var(--color-void);
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(var(--color-blue-500), var(--color-violet-500));
-    border-radius: 999px;
-    border: 2px solid var(--color-void);
+    background: var(--color-border-strong);
+    border-radius: 0px;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -194,63 +159,47 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-neon-blue);
+    outline: 2px solid var(--color-ivory);
     outline-offset: 3px;
     border-radius: 2px;
-  }
-
-  /* Hide the native cursor only where PointerFX actually draws a replacement.
-     Its dot and ring are `md:block`, so without the width floor a mouse user
-     on a narrow window gets no cursor at all. Reduced-motion users keep the
-     native cursor too — the custom one trails behind the pointer by design. */
-  @media (pointer: fine) and (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-    body, a, button, input, textarea, [data-cursor] {
-      cursor: none;
-    }
   }
 }
 
 @layer components {
-  /* Glass is a lit translucent panel on dark, but on light it has to read as an
-     elevated white card — a white-on-white gradient is invisible, so the light
-     theme swaps to an opaque-ish surface with a real shadow for separation. */
   .glass {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--color-border);
     box-shadow: var(--glass-shadow);
   }
 
   .glass-strong {
     background: var(--glass-strong-bg);
-    backdrop-filter: blur(28px) saturate(160%);
-    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--color-border-strong);
     box-shadow: var(--glass-strong-shadow);
   }
 
   :root {
-    --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-    --glass-strong-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+    --glass-bg: rgba(10, 10, 12, 0.78);
+    --glass-strong-bg: rgba(10, 10, 12, 0.92);
     --glass-shadow: none;
     --glass-strong-shadow: none;
   }
   :root[data-theme="light"] {
-    --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72));
-    --glass-strong-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.86));
-    --glass-shadow: 0 1px 2px rgba(12, 12, 22, 0.04), 0 8px 24px -12px rgba(12, 12, 22, 0.12);
-    --glass-strong-shadow: 0 1px 3px rgba(12, 12, 22, 0.06), 0 16px 40px -18px rgba(12, 12, 22, 0.18);
+    --glass-bg: rgba(255, 255, 255, 0.88);
+    --glass-strong-bg: rgba(255, 255, 255, 0.96);
+    --glass-shadow: 0 1px 2px rgba(9, 9, 11, 0.04);
+    --glass-strong-shadow: 0 4px 20px -4px rgba(9, 9, 11, 0.08);
   }
 
-  /* The gradient starts at the primary text colour so it stays legible in both
-     themes — starting at pure white would vanish against a light background. */
   .text-gradient {
     background: linear-gradient(
-      120deg,
-      var(--color-ivory) 10%,
-      var(--color-blue-400) 50%,
-      var(--color-violet-400) 90%
+      180deg,
+      var(--color-ivory) 0%,
+      var(--color-mist) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;

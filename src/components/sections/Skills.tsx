@@ -5,19 +5,37 @@ import type { SkillCategory } from "@/types";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+const CATEGORY_DESCRIPTIONS: Record<string, string> = {
+  Frontend:
+    "Responsive interfaces, modern component architectures, and accessible motion systems.",
+  Backend:
+    "RESTful APIs, relational data modeling, authentication, and server-side business logic.",
+  Programming:
+    "Core object-oriented and procedural foundations across web, desktop, and engine scripting.",
+  "Game Development":
+    "Interactive 3D environments, XR/VR spatial interactions, physics, and custom assets.",
+  "UI/UX & Analysis":
+    "Requirement gathering, workflow modeling, wireframing, and human-centered interface design.",
+  "CMS & SEO":
+    "Production WordPress deployments, hosting infrastructure, and technical search optimization.",
+  "Tools & Platforms":
+    "Version control, development environments, systems diagrams, and multimedia post-production.",
+};
+
 export function Skills() {
   return (
-    <section id="skills" className="relative py-28 sm:py-36">
+    <section id="skills" className="relative border-b border-border py-28 sm:py-36">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <SectionHeading
-          eyebrow="Capabilities"
-          title="Tools I build with."
-          description="A full-stack toolkit spanning web development, game engines, databases and design tooling."
+          eyebrow="What I Do"
+          title="Capabilities & Toolkit"
+          description="Full-stack web development, enterprise business systems, and interactive 3D engineering — structured for reliability and speed."
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Architectural 1px Hairline Matrix inspired by reference */}
+        <div className="mt-16 grid grid-cols-1 border-l border-t border-border sm:grid-cols-2 lg:grid-cols-3">
           {SKILLS.map((category, i) => (
-            <SkillCategoryCard key={category.title} category={category} index={i} />
+            <SkillCategoryCell key={category.title} category={category} index={i} />
           ))}
         </div>
       </div>
@@ -25,41 +43,50 @@ export function Skills() {
   );
 }
 
-function SkillCategoryCard({ category, index }: { category: SkillCategory; index: number }) {
+function SkillCategoryCell({
+  category,
+  index,
+}: {
+  category: SkillCategory;
+  index: number;
+}) {
   const Icon = category.icon;
+  const num = String(index + 1).padStart(2, "0");
+  const description =
+    CATEGORY_DESCRIPTIONS[category.title] ??
+    "Production tools and technologies used across client and engineering projects.";
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, delay: (index % 3) * 0.1, ease: EASE }}
-      className="glass group rounded-3xl p-7 transition-colors hover:border-border-strong sm:p-8"
+      transition={{ duration: 0.65, delay: (index % 3) * 0.08, ease: EASE }}
+      className="group flex flex-col justify-between border-b border-r border-border bg-void p-7 transition-colors duration-300 hover:bg-surface sm:p-9"
     >
-      <div className="mb-6 flex items-center gap-3">
-        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/20 to-violet-500/20 text-neon-blue transition-transform duration-300 group-hover:scale-110">
-          <Icon className="h-5 w-5" />
-        </span>
-        <h3 className="font-display text-lg font-medium text-ivory">{category.title}</h3>
+      <div>
+        <div className="flex items-center justify-between font-mono text-xs text-fog">
+          <span>{num}</span>
+          <Icon className="h-4 w-4 text-mist transition-colors group-hover:text-ivory" />
+        </div>
+
+        <h3 className="mt-5 font-display text-xl font-bold uppercase tracking-tight text-ivory">
+          {category.title}
+        </h3>
+
+        <p className="mt-2.5 text-sm leading-relaxed text-mist">
+          {description}
+        </p>
       </div>
 
-      <div className="space-y-5">
-        {category.skills.map((skill, i) => (
-          <div key={skill.name}>
-            <div className="mb-2 flex items-center justify-between text-sm">
-              <span className="text-mist">{skill.name}</span>
-              <span className="font-mono text-xs text-fog">{skill.level}%</span>
-            </div>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-tint-2">
-              <motion.div
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: skill.level / 100 }}
-                viewport={{ once: true, amount: 0.6 }}
-                transition={{ duration: 1.1, delay: 0.15 + i * 0.08, ease: EASE }}
-                style={{ transformOrigin: "left" }}
-                className="h-full rounded-full bg-gradient-to-r from-blue-500 to-violet-500"
-              />
-            </div>
-          </div>
+      <div className="mt-7 flex flex-wrap gap-1.5 border-t border-border pt-5">
+        {category.skills.map((skill) => (
+          <span
+            key={skill.name}
+            className="rounded-sm border border-border bg-tint px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-ivory/90"
+          >
+            {skill.name}
+          </span>
         ))}
       </div>
     </motion.div>

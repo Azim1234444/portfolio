@@ -89,29 +89,23 @@ export function Loader() {
                   cy="50"
                   r="42"
                   fill="none"
-                  stroke="rgba(255,255,255,0.08)"
-                  strokeWidth="2.5"
+                  stroke="var(--color-border)"
+                  strokeWidth="2"
                 />
                 <motion.circle
                   cx="50"
                   cy="50"
                   r="42"
                   fill="none"
-                  stroke="url(#loader-gradient)"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
+                  stroke="var(--color-ivory)"
+                  strokeWidth="2"
+                  strokeLinecap="square"
                   strokeDasharray={264}
                   animate={{ strokeDashoffset: 264 - (264 * progress) / 100 }}
                   transition={{ duration: 0.15, ease: "linear" }}
                 />
-                <defs>
-                  <linearGradient id="loader-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#4f9cff" />
-                    <stop offset="100%" stopColor="#a855f7" />
-                  </linearGradient>
-                </defs>
               </svg>
-              <span className="absolute font-display text-2xl font-semibold tracking-tight text-gradient">
+              <span className="absolute font-display text-2xl font-bold tracking-tight text-ivory">
                 AH
               </span>
             </motion.div>

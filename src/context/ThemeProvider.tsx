@@ -33,7 +33,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     // Keeps form controls, scrollbars and the browser UI in step.
     document.documentElement.style.colorScheme = theme;
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", theme === "light" ? "#f6f6fa" : "#050507");
+    if (meta) meta.setAttribute("content", theme === "light" ? "#ffffff" : "#000000");
   }, [theme]);
 
   // Follow the OS only while the visitor has not chosen for themselves.

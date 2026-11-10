@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { BadgeCheck, ExternalLink } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { Button } from "@/components/ui/button";
 import { CERTIFICATIONS } from "@/data/certifications";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -12,84 +13,110 @@ export function Certifications() {
   const visibleCertifications = showAll ? CERTIFICATIONS : CERTIFICATIONS.slice(0, 6);
 
   return (
-    <section id="certifications" className="relative py-28 sm:py-36">
+    <section id="certifications" className="relative border-b border-border py-28 sm:py-36">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <SectionHeading
           eyebrow="Recognition"
-          title="Certifications."
-          description="Completed courses in AI, cybersecurity, cloud computing, digital transformation, and more."
+          title="Certifications & Credentials"
+          description="Verified coursework and industry credentials across artificial intelligence, cybersecurity, cloud infrastructure, and programming."
         />
 
-        <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleCertifications.map((cert, i) => (
-            <motion.article
-              key={`${cert.title}-${cert.year}`}
-              initial={reduceMotion ? false : { opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.7, delay: Math.min(i, 5) * 0.08, ease: EASE }}
-              whileHover={reduceMotion ? undefined : { y: -8 }}
-              className="glass-strong relative min-w-0 overflow-hidden rounded-3xl"
-            >
-              <a
-                href={cert.certificateUrl ?? cert.image}
-                target="_blank"
-                rel="noreferrer"
-                className="group block focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-neon-blue"
-                data-cursor="hover"
-                aria-label={`Open ${cert.title} certificate (${cert.year})`}
-              >
-                <div className="relative aspect-[4/3] overflow-hidden bg-white">
-                  <img
-                    src={cert.image}
-                    alt={`${cert.title} certificate, ${cert.issuer} ${cert.year}`}
-                    loading="lazy"
-                    className="h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <span className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" aria-hidden>
-                    <ExternalLink className="h-4 w-4" />
-                  </span>
-                </div>
+        <div className="mt-16 grid grid-cols-1 border-l border-t border-border sm:grid-cols-2 lg:grid-cols-3">
+          {visibleCertifications.map((cert, i) => {
+            const num = String(i + 1).padStart(2, "0");
+            const isCoursera = cert.credentialUrl?.includes("coursera.org");
 
-                <div className="relative p-6 pb-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-neon-blue">
-                      {cert.category}
-                    </p>
-                    <span className="flex items-center gap-1 rounded-full border border-border bg-tint px-2.5 py-1 font-mono text-[11px] text-mist">
-                      <BadgeCheck className="h-3 w-3 text-emerald-400" />
+            return (
+              <motion.article
+                key={`${cert.title}-${cert.year}`}
+                initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.65, delay: Math.min(i, 5) * 0.07, ease: EASE }}
+                className="group flex flex-col justify-between border-b border-r border-border bg-void transition-colors duration-300 hover:bg-surface"
+              >
+                <a
+                  href={cert.certificateUrl ?? cert.image}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ivory"
+                  aria-label={`Open ${cert.title} certificate (${cert.year})`}
+                >
+                  {/* Top metadata bar */}
+                  <div className="flex items-center justify-between border-b border-border px-5 py-3 font-mono text-[11px] uppercase tracking-[0.18em] text-fog">
+                    <span>
+                      {num} · {cert.category}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-mist">
+                      <BadgeCheck className="h-3.5 w-3.5 text-emerald-400" />
                       {cert.year}
                     </span>
                   </div>
-                  <h3 className="mt-2 text-balance font-display text-xl font-medium leading-snug text-ivory">
-                    {cert.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm text-mist">{cert.issuer}</p>
-                </div>
-              </a>
-              {cert.certificateUrl && cert.credentialUrl && (
-                <a
-                  href={cert.credentialUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mx-6 mb-6 inline-flex items-center gap-1.5 text-sm text-neon-blue underline-offset-4 hover:underline focus-visible:underline"
-                >
-                  Verify on Coursera <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+
+                  {/* Certificate document preview */}
+                  <div className="relative aspect-[4/3] overflow-hidden border-b border-border bg-white p-3">
+                    <img
+                      src={cert.image}
+                      alt={`${cert.title} certificate, ${cert.issuer} ${cert.year}`}
+                      loading="lazy"
+                      className="h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    />
+                    <span
+                      className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-sm border border-border-strong bg-void/85 text-ivory opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+                      aria-hidden
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </span>
+                  </div>
+
+                  <div className="p-6 pb-4">
+                    <h3 className="text-balance font-display text-lg font-bold uppercase leading-snug tracking-tight text-ivory">
+                      {cert.title}
+                    </h3>
+                    <p className="mt-1.5 font-mono text-xs text-mist">{cert.issuer}</p>
+                  </div>
                 </a>
-              )}
-            </motion.article>
-          ))}
+
+                <div className="flex items-center justify-between border-t border-border px-6 py-3.5 font-mono text-[11px] uppercase tracking-[0.16em]">
+                  <a
+                    href={cert.certificateUrl ?? cert.image}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 text-mist transition-colors hover:text-ivory"
+                  >
+                    View Certificate <ExternalLink className="h-3 w-3" aria-hidden />
+                  </a>
+
+                  {cert.credentialUrl && (
+                    <a
+                      href={cert.credentialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-ivory underline-offset-4 hover:underline"
+                    >
+                      {isCoursera ? "Verify Coursera" : "Verify Credential"}{" "}
+                      <ExternalLink className="h-3 w-3" aria-hidden />
+                    </a>
+                  )}
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
+
         {CERTIFICATIONS.length > 6 && (
-          <div className="mt-10 text-center">
-            <button
+          <div className="mt-10 flex justify-center">
+            <Button
               type="button"
+              variant="outline"
+              size="lg"
               onClick={() => setShowAll((current) => !current)}
               aria-expanded={showAll}
-              className="rounded-full border border-border-strong bg-tint-2 px-6 py-3 text-sm font-medium text-ivory transition-colors hover:bg-tint-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neon-blue"
             >
-              {showAll ? "Show fewer certifications" : `View all ${CERTIFICATIONS.length} certifications`}
-            </button>
+              {showAll
+                ? "Show Fewer Certifications"
+                : `View All ${CERTIFICATIONS.length} Certifications`}
+            </Button>
           </div>
         )}
       </div>

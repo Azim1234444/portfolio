@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { GraduationCap} from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { FadeIn } from "@/components/shared/RevealText";
 import { useCountUp } from "@/hooks/useCountUp";
@@ -12,32 +11,36 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function About() {
   return (
-    <section id="about" className="relative py-28 sm:py-36">
+    <section id="about" className="relative border-b border-border py-28 sm:py-36">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-        <SectionHeading eyebrow="About Me" title="The person behind the code." />
+        <SectionHeading eyebrow="Profile" title="The Engineer Behind the Work" />
 
-        <div className="mt-16 grid grid-cols-1 gap-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
+        <div className="mt-16 grid grid-cols-1 gap-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
           <FadeIn className="relative mx-auto w-full max-w-sm lg:mx-0">
             <ProfilePortrait />
           </FadeIn>
 
           <div>
             <FadeIn delay={0.1}>
-              <p className="text-balance text-lg leading-relaxed text-mist sm:text-xl">
+              <p className="text-balance text-base leading-relaxed text-mist sm:text-lg">
                 {PERSONAL.bio}
               </p>
             </FadeIn>
 
-            <div className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-4">
+            {/* Architectural 1px hairline stats bar */}
+            <div className="mt-12 grid grid-cols-2 divide-x divide-y divide-border border border-border sm:grid-cols-4 sm:divide-y-0">
               {STATS.map((stat, i) => (
                 <StatCard key={stat.label} {...stat} delay={i * 0.08} />
               ))}
             </div>
 
-            <div className="mt-16">
-              <FadeIn className="mb-8 flex items-center gap-3">
-                <GraduationCap className="h-5 w-5 text-neon-blue" />
-                <h3 className="font-display text-xl font-medium text-ivory">Education</h3>
+            {/* Education Ledger */}
+            <div className="mt-16 border-t border-border pt-12">
+              <FadeIn className="mb-8 flex items-center justify-between">
+                <p className="font-mono text-xs uppercase tracking-[0.22em] text-fog">
+                  Academic Background
+                </p>
+                <span className="font-mono text-xs text-fog">UiTM</span>
               </FadeIn>
               <EducationTimeline />
             </div>
@@ -50,44 +53,41 @@ export function About() {
 
 function ProfilePortrait() {
   return (
-    <div className="group relative aspect-[4/5] w-full">
-      <motion.div
-        aria-hidden
-        className="absolute -inset-4 rounded-[2.5rem] border border-dashed border-border-strong"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-      />
-      <div className="glass-strong noise-overlay relative h-full w-full overflow-hidden rounded-[2rem]">
+    <div className="group overflow-hidden rounded-sm border border-border bg-surface">
+      <div className="flex items-center justify-between border-b border-border bg-surface-2 px-4 py-2.5">
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">
+          ID · AZIM HALIM
+        </span>
+        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-400">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Active
+        </span>
+      </div>
+
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-ink">
         <img
           src={profileImg}
           alt={PERSONAL.name}
-          className="absolute inset-0 h-full w-full scale-105 object-cover object-top transition-transform duration-700 group-hover:scale-100"
+          className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent"
+          className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"
         />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-br from-blue-500/15 via-transparent to-violet-500/20 mix-blend-overlay"
-        />
-       
+        <div className="absolute inset-x-0 bottom-0 p-5">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/70">
+            Based in
+          </p>
+          <p className="mt-1 font-display text-sm font-semibold uppercase tracking-wide text-white">
+            Johor &amp; Selangor, Malaysia
+          </p>
+        </div>
       </div>
 
-      {[
-        { label: "React", pos: "-left-6 top-8" },
-        { label: "Unity", pos: "-right-6 top-1/2" },
-        { label: "PHP", pos: "-left-4 bottom-10" },
-      ].map((chip, i) => (
-        <motion.span
-          key={chip.label}
-          className={`glass absolute ${chip.pos} rounded-full px-3 py-1.5 font-mono text-[11px] text-ivory shadow-lg`}
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.6 }}
-        >
-          {chip.label}
-        </motion.span>
-      ))}
+      <div className="grid grid-cols-3 divide-x divide-border border-t border-border bg-surface font-mono text-[11px] uppercase tracking-[0.16em] text-mist">
+        <span className="py-2.5 text-center">Full Stack</span>
+        <span className="py-2.5 text-center">Systems</span>
+        <span className="py-2.5 text-center">3D / Unity</span>
+      </div>
     </div>
   );
 }
@@ -104,46 +104,54 @@ function StatCard({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.4 }}
-      transition={{ duration: 0.7, delay, ease: EASE }}
-      className="glass rounded-2xl px-5 py-6 text-center transition-colors hover:border-border-strong sm:text-left"
+      transition={{ duration: 0.6, delay, ease: EASE }}
+      className="bg-surface/50 px-5 py-6"
     >
-      <p className="font-display text-3xl font-semibold tabular-nums text-ivory sm:text-4xl">
+      <p className="font-display text-3xl font-bold tabular-nums tracking-tight text-ivory sm:text-4xl">
         {decimals ? animated.toFixed(decimals) : Math.round(animated)}
-        <span className="text-neon-blue">{suffix}</span>
+        <span className="text-mist">{suffix}</span>
       </p>
-      <p className="mt-1.5 text-xs uppercase tracking-[0.14em] text-fog">{label}</p>
+      <p className="mt-2 font-mono text-[10.5px] uppercase tracking-[0.18em] text-fog">
+        {label}
+      </p>
     </motion.div>
   );
 }
 
 function EducationTimeline() {
   return (
-    <ol className="relative border-l border-border pl-8">
+    <ol className="divide-y divide-border border-y border-border">
       {EDUCATION.map((edu, i) => (
         <motion.li
           key={edu.degree}
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7, delay: i * 0.15, ease: EASE }}
-          className="relative pb-12 last:pb-0"
+          transition={{ duration: 0.65, delay: i * 0.12, ease: EASE }}
+          className="grid grid-cols-1 gap-4 py-7 sm:grid-cols-[0.34fr_0.66fr] sm:gap-8"
         >
-          <span className="absolute -left-[2.32rem] top-1 flex h-4 w-4 items-center justify-center rounded-full bg-void ring-4 ring-void">
-            <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-br from-blue-400 to-violet-400 shadow-[0_0_12px_2px_rgba(79,156,255,0.7)]" />
-          </span>
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-ivory">
+              0{i + 1} · {edu.period}
+            </p>
+            <p className="mt-1.5 font-mono text-xs text-fog">{edu.location}</p>
+            <span className="mt-3 inline-flex items-center rounded-sm border border-border-strong bg-tint px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-ivory">
+              {edu.gpa}
+            </span>
+          </div>
 
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-neon-blue">{edu.period}</p>
-          <h4 className="mt-2 font-display text-lg font-medium text-ivory sm:text-xl">{edu.degree}</h4>
-          <p className="mt-1 text-sm text-mist">
-            {edu.institution} · {edu.location}
-          </p>
-          <p className="mt-3 text-sm leading-relaxed text-mist/90">{edu.detail}</p>
-          <span className="mt-3 inline-flex items-center rounded-full border border-border bg-tint px-3 py-1 font-mono text-[11px] text-violet-300">
-            {edu.gpa}
-          </span>
+          <div>
+            <h3 className="font-display text-lg font-bold uppercase tracking-tight text-ivory sm:text-xl">
+              {edu.degree}
+            </h3>
+            <p className="mt-1 font-mono text-xs uppercase tracking-[0.14em] text-mist">
+              {edu.institution}
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-mist">{edu.detail}</p>
+          </div>
         </motion.li>
       ))}
     </ol>

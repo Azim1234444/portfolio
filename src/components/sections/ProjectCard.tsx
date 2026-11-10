@@ -1,182 +1,145 @@
-import { useEffect, useRef, type MouseEvent } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FiGithub, FiArrowUpRight } from "react-icons/fi";
 import { ArrowRight } from "lucide-react";
-import { gsap } from "@/utils/gsap";
-import { useIsTouchDevice } from "@/hooks/useMediaQuery";
-import { cn } from "@/utils/cn";
+import { PerspectiveGrid } from "@/components/shared/PerspectiveGrid";
 import type { ProjectItem } from "@/types";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function ProjectCard({ project, index }: { project: ProjectItem; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const visualRef = useRef<HTMLDivElement>(null);
-  const isTouch = useIsTouchDevice();
-
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [8, -8]), { stiffness: 220, damping: 22 });
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-8, 8]), { stiffness: 220, damping: 22 });
-  const glareX = useTransform(x, [-0.5, 0.5], ["0%", "100%"]);
-  const glareY = useTransform(y, [-0.5, 0.5], ["0%", "100%"]);
-
-  function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
-    if (isTouch || !cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-  }
-
-  function handleMouseLeave() {
-    x.set(0);
-    y.set(0);
-  }
-
-  useEffect(() => {
-    if (isTouch || !visualRef.current) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        visualRef.current,
-        { yPercent: -8 },
-        {
-          yPercent: 8,
-          ease: "none",
-          scrollTrigger: {
-            trigger: cardRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 0.6,
-          },
-        }
-      );
-    }, cardRef);
-    return () => ctx.revert();
-  }, [isTouch]);
+  const caseNumber = String(index + 1).padStart(2, "0");
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
+    <motion.article
+      initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.7, delay: (index % 3) * 0.1, ease: EASE }}
-      className={project.featured ? "sm:col-span-2 lg:col-span-1" : ""}
+      transition={{ duration: 0.75, ease: EASE }}
+      className="group relative overflow-hidden py-16 sm:py-24"
     >
-      <motion.div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{ rotateX: isTouch ? 0 : rotateX, rotateY: isTouch ? 0 : rotateY, transformPerspective: 900 }}
-        className="glass group relative flex h-full flex-col overflow-hidden rounded-3xl"
-        data-cursor="hover"
+      {/* Subtle perspective wireframe runway at the base of each case study row */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-56 opacity-45 transition-opacity duration-500 group-hover:opacity-75"
       >
-        <div ref={visualRef} className="relative aspect-[16/11] w-full overflow-hidden">
-          {project.image ? (
-            <img
-              src={project.image}
-              alt={`${project.title} screenshot`}
-              loading="lazy"
-              className="absolute inset-0 h-full w-full scale-110 object-cover object-top transition-transform duration-700 group-hover:scale-100"
-            />
-          ) : (
-            <>
+        <PerspectiveGrid horizonRatio={0.15} columns={8} rows={10} showStars={false} />
+      </div>
+
+      <div className="relative z-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.18fr_0.82fr] lg:gap-14">
+        {/* Left Column: Browser-Framed Project Screenshot */}
+        <Link
+          to={`/projects/${project.slug}`}
+          aria-label={`View ${project.title} case study`}
+          className="block overflow-hidden rounded-sm border border-border bg-surface transition-colors duration-300 group-hover:border-border-strong"
+        >
+          {/* Minimalist browser chrome bar */}
+          <div className="flex items-center justify-between border-b border-border bg-surface-2 px-3.5 py-2">
+            <div className="flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-ivory/25" />
+              <span className="h-2 w-2 rounded-full bg-ivory/25" />
+              <span className="h-2 w-2 rounded-full bg-ivory/25" />
+            </div>
+            <span className="truncate font-mono text-[10px] uppercase tracking-[0.18em] text-fog">
+              {project.demo ? project.demo.replace(/^https?:\/\//, "").replace(/\/$/, "") : project.slug}
+            </span>
+            <span className="font-mono text-[10px] text-fog">{project.year}</span>
+          </div>
+
+          <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink">
+            {project.image ? (
+              <img
+                src={project.image}
+                alt={`${project.title} screenshot`}
+                loading="lazy"
+                className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              />
+            ) : (
               <div
                 aria-hidden
-                className="absolute inset-0 scale-110 transition-transform duration-700 group-hover:scale-100"
+                className="h-full w-full"
                 style={{
                   background: `linear-gradient(135deg, ${project.gradient[0]}, ${project.gradient[1]})`,
                 }}
               />
-              <div aria-hidden className="absolute inset-0 bg-grid opacity-25 mix-blend-overlay" />
-            </>
-          )}
-          {/* Screenshots are busy, so they need a heavier scrim than the flat gradients
-              to keep the title and badges legible. */}
-          <div
-            aria-hidden
-            className={cn(
-              "absolute inset-0 bg-gradient-to-t",
-              project.image
-                ? "from-black via-black/55 to-black/25"
-                : "from-black/70 via-black/10 to-transparent"
             )}
-          />
+          </div>
+        </Link>
 
-          {!isTouch && (
-            <motion.div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              style={{
-                background: `radial-gradient(220px circle at ${glareX} ${glareY}, rgba(255,255,255,0.25), transparent 70%)`,
-              }}
-            />
-          )}
+        {/* Right Column: Case Number, Uppercase Title, Description, Tags & Actions */}
+        <div className="flex flex-col items-start">
+          <div className="flex flex-wrap items-center gap-2.5 font-mono text-xs uppercase tracking-[0.2em] text-fog">
+            <span className="text-ivory">Case {caseNumber}</span>
+            <span>·</span>
+            <span>{project.category}</span>
+            <span>·</span>
+            <span>{project.year}</span>
+          </div>
 
-          <span className="absolute left-5 top-5 rounded-full border border-border-strong bg-black/30 px-3 py-1 font-mono text-[11px] text-white backdrop-blur">
-            {project.category}
-          </span>
-          <span className="absolute right-5 top-5 font-mono text-[11px] text-white/70">
-            {project.year}
-          </span>
-
-          <h3 className="absolute bottom-5 left-5 right-5 font-display text-2xl font-medium text-white drop-shadow-lg sm:text-[1.65rem]">
-            {project.title}
+          <h3 className="mt-4 text-balance font-display text-2xl font-bold uppercase leading-[1.04] tracking-tight text-ivory sm:text-3xl lg:text-4xl">
+            <Link
+              to={`/projects/${project.slug}`}
+              className="transition-colors duration-200 hover:text-mist"
+            >
+              {project.title}
+            </Link>
           </h3>
-        </div>
 
-        <div className="flex flex-1 flex-col p-6 sm:p-7">
-          <p className="line-clamp-3 text-sm leading-relaxed text-mist">{project.description}</p>
+          <p className="mt-4 text-balance text-sm leading-relaxed text-mist sm:text-base">
+            {project.description}
+          </p>
 
-          <div className="mt-5 flex flex-wrap gap-2">
-            {project.tags.slice(0, 4).map((tag) => (
+          <div className="mt-6 flex flex-wrap gap-1.5">
+            {project.tags.slice(0, 6).map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-border bg-tint px-2.5 py-1 font-mono text-[10.5px] text-mist"
+                className="rounded-sm border border-border bg-tint px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-[0.1em] text-mist"
               >
                 {tag}
               </span>
             ))}
-            {project.tags.length > 4 && (
-              <span className="rounded-full border border-border bg-tint px-2.5 py-1 font-mono text-[10.5px] text-fog">
-                +{project.tags.length - 4}
+            {project.tags.length > 6 && (
+              <span className="rounded-sm border border-border bg-tint px-2.5 py-1 font-mono text-[10.5px] text-fog">
+                +{project.tags.length - 6}
               </span>
             )}
           </div>
 
-          <div className="mt-6 flex items-center gap-2 border-t border-border pt-5">
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`${project.title} on GitHub`}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-mist transition-colors hover:border-border-strong hover:text-ivory"
-              >
-                <FiGithub className="h-4 w-4" />
-              </a>
-            )}
+          <div className="mt-8 flex flex-wrap items-center gap-6 border-t border-border pt-5 w-full">
+            <Link
+              to={`/projects/${project.slug}`}
+              className="inline-flex min-h-10 items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.18em] text-ivory transition-colors hover:text-mist"
+            >
+              View Project
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
+
             {project.demo && (
               <a
                 href={project.demo}
                 target="_blank"
                 rel="noreferrer"
-                aria-label={`${project.title} live demo`}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-mist transition-colors hover:border-border-strong hover:text-ivory"
+                aria-label={`${project.title} live site`}
+                className="inline-flex min-h-10 items-center gap-1.5 font-mono text-xs uppercase tracking-[0.16em] text-mist transition-colors hover:text-ivory"
               >
-                <FiArrowUpRight className="h-4 w-4" />
+                Live Site <FiArrowUpRight className="h-3.5 w-3.5" />
               </a>
             )}
-            <Link
-              to={`/projects/${project.slug}`}
-              className="ml-auto flex min-h-11 items-center gap-1.5 rounded-full px-4 text-sm font-medium text-ivory transition-colors hover:text-neon-blue"
-            >
-              Read More
-              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-            </Link>
+
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${project.title} source code on GitHub`}
+                className="inline-flex min-h-10 items-center gap-1.5 font-mono text-xs uppercase tracking-[0.16em] text-mist transition-colors hover:text-ivory"
+              >
+                <FiGithub className="h-3.5 w-3.5" /> Code
+              </a>
+            )}
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </motion.article>
   );
 }

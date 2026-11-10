@@ -11,6 +11,7 @@ import {
   FiDownload,
   FiCopy,
   FiCode,
+  FiMessageSquare,
 } from "react-icons/fi";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import {
@@ -24,7 +25,16 @@ import {
 import { useSectionNav } from "@/hooks/useSectionNav";
 import { NAV_LINKS, PERSONAL, SOCIAL_LINKS } from "@/constants";
 
-const NAV_ICONS = [FiHome, FiUser, FiBriefcase, FiFolder, FiAward, FiCode, FiMail];
+const NAV_ICONS = [
+  FiHome,
+  FiUser,
+  FiBriefcase,
+  FiFolder,
+  FiCode,
+  FiAward,
+  FiMessageSquare,
+  FiMail,
+];
 
 export function CommandPalette() {
   const [open, setOpen] = useState(false);

@@ -1,181 +1,146 @@
-import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { FiArrowDown, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { Download, FolderKanban, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/shared/Magnetic";
-import { ParticlesBackground } from "@/components/shared/ParticlesBackground";
-import { HeroVisualFallback } from "@/components/three/HeroVisualFallback";
+import { PerspectiveGrid } from "@/components/shared/PerspectiveGrid";
 import { useTypewriter } from "@/hooks/useTypewriter";
-import { useMediaQuery, useReducedMotion } from "@/hooks/useMediaQuery";
 import { useSmoothScroll } from "@/context/SmoothScrollProvider";
 import { useLoading } from "@/context/LoadingContext";
 import { PERSONAL, SOCIAL_LINKS } from "@/constants";
 
-const HeroCanvas = lazy(() =>
-  import("@/components/three/HeroCanvas").then((m) => ({ default: m.HeroCanvas }))
-);
-
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// These are relative to the moment the loading screen finishes (isLoading
-// flips false) — the `!isLoading` gate below is what actually holds the
-// animation back, so delays here only need to be small stagger offsets.
 const container = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.11, delayChildren: 0.08 } },
 };
 const item = {
-  hidden: { opacity: 0, y: 28, filter: "blur(6px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.9, ease: EASE } },
+  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.85, ease: EASE } },
 };
 
 export function Hero() {
   const { isLoading } = useLoading();
   const { scrollTo } = useSmoothScroll();
-  const role = useTypewriter({ words: PERSONAL.roles, enabled: !isLoading, startDelay: 500 });
-
-  // Three.js is ~237KB gzipped and mobile Lighthouse simulates a slow CPU, so
-  // phones get the CSS visual instead. Because this gate wraps the lazy import,
-  // the chunk is never even requested there — not merely hidden.
-  const isSmallScreen = useMediaQuery("(max-width: 767px)");
-  const reducedMotion = useReducedMotion();
-  const useWebGL = !isSmallScreen && !reducedMotion;
+  const role = useTypewriter({ words: PERSONAL.roles, enabled: !isLoading, startDelay: 450 });
 
   return (
     <section
       id="home"
-      className="relative flex min-h-svh items-center overflow-hidden pt-28 sm:pt-24"
+      className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden border-b border-border pb-20 pt-28 sm:pt-32"
     >
-      <div aria-hidden className="absolute inset-0 bg-grid mask-fade-bottom opacity-40" />
-      <div
-        aria-hidden
-        className="absolute left-1/2 top-[-10%] h-[min(560px,70vw)] w-[min(560px,100vw)] -translate-x-1/2 rounded-full bg-blue-500/20 blur-[90px] sm:blur-[140px]"
-      />
-      <div
-        aria-hidden
-        className="absolute right-[-10%] bottom-[-10%] h-[min(460px,60vw)] w-[min(460px,80vw)] rounded-full bg-violet-500/20 blur-[90px] sm:blur-[140px]"
-      />
-      <ParticlesBackground density={44} />
+      {/* Animated 3D Perspective Wireframe Runway + Active Tiles + Starfield */}
+      <PerspectiveGrid horizonRatio={0.34} columns={10} rows={16} showStars />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-4 lg:px-12">
+      {/* Vignette fade so text stays ultra-crisp against the grid horizon */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_32%,transparent_0%,var(--color-void)_82%)] opacity-60"
+      />
+
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 text-center sm:px-8">
         <motion.div
           variants={container}
           initial="hidden"
           animate={!isLoading ? "visible" : "hidden"}
-          className="max-w-2xl"
+          className="flex flex-col items-center"
         >
+          {/* Availability status line */}
           <motion.div
             variants={item}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-tint px-4 py-1.5"
+            className="mb-6 inline-flex items-center gap-2.5 rounded-sm border border-border bg-void/80 px-3.5 py-1.5 backdrop-blur-sm"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
             </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-mist">
-              Open to opportunities
+            <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-mist">
+              Open to opportunities · Malaysia
             </span>
           </motion.div>
 
-          <motion.p variants={item} className="font-mono text-sm tracking-[0.2em] text-neon-blue">
-            HI, I&apos;M
-          </motion.p>
-
+          {/* Giant Centered Uppercase Display Headline */}
           <motion.h1
             variants={item}
-            className="mt-3 text-balance font-display text-5xl font-semibold leading-[1.02] tracking-tight text-ivory sm:text-6xl lg:text-[4.5rem]"
+            className="font-display text-[clamp(2.75rem,8vw,6.5rem)] font-bold uppercase leading-[0.94] tracking-[-0.03em] text-ivory"
           >
-            Muhammad Nur Azim
-            <br />
-            <span className="text-gradient">Abdul Halim</span>
+            MUHAMMAD NUR AZIM
+            <span className="mt-1 block text-ivory/90">ABDUL HALIM</span>
           </motion.h1>
 
+          {/* Spaced uppercase role / typewriter bar */}
           <motion.div
             variants={item}
-            className="mt-6 flex h-9 items-center font-mono text-lg text-mist sm:text-xl"
+            className="mt-6 flex h-8 items-center justify-center font-mono text-xs uppercase tracking-[0.28em] text-mist sm:text-sm"
           >
-            <span className="mr-2 text-violet-400">{">"}</span>
+            <span className="mr-2 text-fog">//</span>
             <span>{role}</span>
-            <span className="ml-1 h-6 w-[2px] animate-pulse bg-neon-blue" />
+            <span className="ml-1.5 h-4 w-[2px] animate-pulse bg-ivory" />
           </motion.div>
 
-          <motion.p variants={item} className="mt-6 max-w-xl text-base leading-relaxed text-mist sm:text-lg">
+          {/* Concise centered pitch */}
+          <motion.p
+            variants={item}
+            className="mt-5 max-w-2xl text-balance text-base leading-relaxed text-mist sm:text-lg"
+          >
             {PERSONAL.tagline}
           </motion.p>
 
-          <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-4">
-            <Magnetic>
-              <Button asChild size="lg" variant="primary">
-                <a href={PERSONAL.resumeUrl} download data-cursor="hover">
-                  <Download /> Download Resume
+          {/* Sharp High-Contrast CTA Pair + Secondary Action */}
+          <motion.div
+            variants={item}
+            className="mt-10 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4"
+          >
+            <Magnetic strength={0.25}>
+              <Button size="lg" variant="primary" onClick={() => scrollTo("#projects")}>
+                <FolderKanban /> View Selected Work
+              </Button>
+            </Magnetic>
+
+            <Magnetic strength={0.25}>
+              <Button size="lg" variant="outline" onClick={() => scrollTo("#contact")}>
+                <Send /> Start a Conversation
+              </Button>
+            </Magnetic>
+
+            <Magnetic strength={0.25}>
+              <Button asChild size="lg" variant="ghost">
+                <a href={PERSONAL.resumeUrl} download>
+                  <Download /> Resume PDF
                 </a>
-              </Button>
-            </Magnetic>
-            <Magnetic>
-              <Button
-                size="lg"
-                variant="outline"
-                data-cursor="hover"
-                onClick={() => scrollTo("#projects")}
-              >
-                <FolderKanban /> View Projects
-              </Button>
-            </Magnetic>
-            <Magnetic>
-              <Button
-                size="lg"
-                variant="ghost"
-                data-cursor="hover"
-                onClick={() => scrollTo("#contact")}
-              >
-                <Send /> Contact Me
               </Button>
             </Magnetic>
           </motion.div>
 
-          <motion.div variants={item} className="mt-12 flex items-center gap-3">
-            <span className="h-px w-10 bg-border-strong" />
-            <div className="flex items-center gap-2">
+          {/* Minimalist social links row */}
+          <motion.div variants={item} className="mt-12 flex items-center gap-4">
+            <span className="h-px w-8 bg-border-strong" />
+            <div className="flex items-center gap-1.5">
               <SocialIcon href={SOCIAL_LINKS.github} label="GitHub" icon={FiGithub} />
               <SocialIcon href={SOCIAL_LINKS.linkedin} label="LinkedIn" icon={FiLinkedin} />
               <SocialIcon href={SOCIAL_LINKS.email} label="Email" icon={FiMail} />
             </div>
+            <span className="h-px w-8 bg-border-strong" />
           </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={!isLoading ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
-          transition={{ duration: 1.4, delay: 0.3, ease: EASE }}
-          className="relative order-first h-[320px] sm:h-[420px] lg:order-last lg:h-[620px]"
-        >
-          {useWebGL ? (
-            <Suspense fallback={<HeroVisualFallback />}>
-              <HeroCanvas />
-            </Suspense>
-          ) : (
-            <HeroVisualFallback />
-          )}
         </motion.div>
       </div>
 
       <motion.button
         type="button"
-        data-cursor="hover"
         onClick={() => scrollTo("#about")}
         initial={{ opacity: 0 }}
         animate={!isLoading ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 1, delay: 1 }}
-        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-fog sm:flex"
+        transition={{ duration: 1, delay: 0.9 }}
+        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-1.5 text-fog transition-colors hover:text-ivory sm:flex"
         aria-label="Scroll to About section"
       >
         <span className="font-mono text-[10px] uppercase tracking-[0.3em]">Scroll</span>
         <motion.span
-          animate={{ y: [0, 8, 0] }}
+          animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
-          <FiArrowDown className="h-4 w-4" />
+          <FiArrowDown className="h-3.5 w-3.5" />
         </motion.span>
       </motion.button>
     </section>
@@ -192,13 +157,13 @@ function SocialIcon({
   icon: typeof FiGithub;
 }) {
   return (
-    <Magnetic strength={0.5}>
+    <Magnetic strength={0.35}>
       <a
         href={href}
         target={href.startsWith("http") ? "_blank" : undefined}
         rel="noreferrer"
         aria-label={label}
-        className="glass flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:text-ivory"
+        className="flex h-10 w-10 items-center justify-center rounded-sm border border-border bg-void/70 text-mist transition-colors hover:border-ivory hover:text-ivory"
       >
         <Icon className="h-4 w-4" />
       </a>

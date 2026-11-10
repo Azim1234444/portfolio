@@ -9,11 +9,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <input
         type={type}
         className={cn(
-          "flex h-13 w-full rounded-xl border border-border bg-tint px-4 py-3 text-sm text-ivory placeholder:text-fog transition-colors duration-200",
-          // A border tint alone is too weak to signal focus (WCAG 2.4.7), so keep
-          // a real ring. `outline-none` here would cancel the global :focus-visible.
-          "focus:border-neon-blue/60 focus:bg-tint-2",
-          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neon-blue",
+          "flex h-12 w-full rounded-sm border border-border bg-tint px-4 py-3 text-sm text-ivory placeholder:text-fog transition-colors duration-200",
+          "focus:border-ivory/60 focus:bg-tint-2",
+          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ivory",
           "disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}

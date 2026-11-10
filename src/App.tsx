@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/context/ThemeProvider";
 import { LoadingProvider } from "@/context/LoadingContext";
 import { SmoothScrollProvider } from "@/context/SmoothScrollProvider";
 import { Loader } from "@/components/shared/Loader";
-import { PointerFX } from "@/components/shared/PointerFX";
 import { ScrollProgress } from "@/components/shared/ScrollProgress";
 import { BackToTop } from "@/components/shared/BackToTop";
 import { WhatsAppChat } from "@/components/shared/WhatsAppChat";
@@ -24,10 +23,10 @@ import { Analytics } from '@vercel/analytics/react';
  * and beacons them out, and only reports from a Vercel deployment.
  *
  * Kept as its own component so the `useLocation` subscription lives here rather
- * than in App, where a route change would re-render the navbar, footer, loader
- * and pointer effects along with it.
+ * than in App, where a route change would re-render the navbar, footer, and loader
+ * along with it.
  *
- * `route` is passed explicitly: without it the seven project pages would each
+ * `route` is passed explicitly: without it the nine project pages would each
  * become their own row, splitting the sample size instead of aggregating.
  */
 function VitalsReporter() {
@@ -50,7 +49,6 @@ function App() {
           <SmoothScrollProvider>
             <ScrollToTop />
             <Loader />
-            <PointerFX />
             <ScrollProgress />
             <Navbar />
 

@@ -19,22 +19,19 @@ export function SectionHeading({
   return (
     <div className={cn(align === "center" && "text-center", className)}>
       <FadeIn>
-        <div
+        <p
           className={cn(
-            "mb-5 inline-flex items-center gap-2.5 rounded-full border border-border bg-tint px-4 py-1.5",
+            "mb-4 font-mono text-xs uppercase tracking-[0.22em] text-fog",
             align === "center" && "mx-auto"
           )}
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-blue-400 to-violet-400 shadow-[0_0_10px_2px_rgba(79,156,255,0.6)]" />
-          <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-mist">
-            {eyebrow}
-          </span>
-        </div>
+          {eyebrow}
+        </p>
       </FadeIn>
 
       <RevealText
         as="h2"
-        className="text-balance font-display text-4xl font-medium leading-[1.08] tracking-tight text-ivory sm:text-5xl lg:text-6xl"
+        className="text-balance font-display text-3xl font-bold uppercase leading-[1.02] tracking-tight text-ivory sm:text-5xl lg:text-[3.5rem]"
       >
         {title}
       </RevealText>

@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 import { Loader2, Send, CheckCircle2, AlertCircle } from "lucide-react";
-import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiMail, FiArrowUpRight } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import { SectionHeading } from "@/components/shared/SectionHeading";
 import { FadeIn } from "@/components/shared/RevealText";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Magnetic } from "@/components/shared/Magnetic";
+import { PerspectiveGrid } from "@/components/shared/PerspectiveGrid";
 import { useContactForm, HONEYPOT_FIELD } from "@/hooks/useContactForm";
 import { PERSONAL, SOCIAL_LINKS } from "@/constants";
 
@@ -16,101 +16,164 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Contact() {
   const { formRef, status, message, handleSubmit } = useContactForm();
+  const waHref = SOCIAL_LINKS.whatsapp
+    ? `https://wa.me/${SOCIAL_LINKS.whatsapp.replace(/[^\d]/g, "")}`
+    : undefined;
 
   return (
-    <section id="contact" className="relative py-28 sm:py-36">
+    <section id="contact" className="relative overflow-hidden border-b border-border py-28 sm:py-36">
+      {/* Animated Perspective Grid Runway backing the closing CTA */}
+      <PerspectiveGrid horizonRatio={0.28} columns={10} rows={15} showStars />
+
       <div
         aria-hidden
-        className="absolute bottom-0 left-1/2 h-[min(420px,50vh)] w-[min(820px,100vw)] -translate-x-1/2 rounded-full bg-violet-500/[0.08] blur-[100px] sm:blur-[160px]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_26%,transparent_0%,var(--color-void)_85%)] opacity-60"
       />
-      <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-        <SectionHeading
-          eyebrow="Get In Touch"
-          title="Let's build something great."
-          description="Have a role, a project, or just want to talk shop? My inbox is open."
-        />
 
-        <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <FadeIn className="flex flex-col gap-6">
-            <div className="glass-strong relative overflow-hidden rounded-3xl p-8">
-              <div
-                aria-hidden
-                className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-gradient-to-br from-blue-500/25 to-violet-500/25 blur-3xl"
-              />
-              <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-neon-blue">
-                Direct Contact
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+        {/* Centered High-Impact Closing Banner inspired by reference */}
+        <FadeIn className="mx-auto max-w-4xl text-center">
+          <p className="font-mono text-xs uppercase tracking-[0.26em] text-fog">
+            Next Step · Available for Projects &amp; Roles
+          </p>
+          <h2 className="mt-4 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-bold uppercase leading-[0.94] tracking-[-0.03em] text-ivory">
+            BUILT TO PERFORM.
+            <span className="mt-1 block text-ivory/90">READY TO SHIP.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-xl text-balance text-base leading-relaxed text-mist sm:text-lg">
+            Have a software engineering role, a business system, or a custom website in mind? Reach out directly or send a project brief below.
+          </p>
+
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3.5">
+            {waHref && (
+              <Magnetic strength={0.25}>
+                <Button asChild size="lg" variant="primary">
+                  <a href={waHref} target="_blank" rel="noreferrer">
+                    <FaWhatsapp className="h-4 w-4" /> Start on WhatsApp
+                  </a>
+                </Button>
+              </Magnetic>
+            )}
+            <Magnetic strength={0.25}>
+              <Button asChild size="lg" variant="outline">
+                <a href={SOCIAL_LINKS.email}>
+                  <FiMail className="h-4 w-4" /> Email Directly
+                </a>
+              </Button>
+            </Magnetic>
+          </div>
+        </FadeIn>
+
+        {/* Architectural 2-Column Direct Contact & Form Ledger */}
+        <div className="mt-20 grid grid-cols-1 border border-border bg-void/90 backdrop-blur-md lg:grid-cols-[0.42fr_0.58fr]">
+          {/* Left Column: Direct Channels */}
+          <div className="flex flex-col justify-between border-b border-border p-7 sm:p-10 lg:border-b-0 lg:border-r">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.22em] text-fog">
+                01 · Direct Channels
               </p>
-              <a
-                href={SOCIAL_LINKS.email}
-                data-cursor="hover"
-                className="mt-3 flex min-h-11 items-center text-balance font-display text-2xl font-medium text-ivory transition-colors hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-400 hover:to-violet-400 sm:text-3xl"
-              >
-                {PERSONAL.email}
-              </a>
-              <div className="mt-8 flex items-center gap-3">
-                <Magnetic>
+              <h3 className="mt-4 font-display text-2xl font-bold uppercase tracking-tight text-ivory">
+                Get In Touch
+              </h3>
+              <p className="mt-2.5 text-sm leading-relaxed text-mist">
+                Prefer direct communication? Connect via email, WhatsApp, or professional networks.
+              </p>
+
+              <div className="mt-8 divide-y divide-border border-y border-border font-mono text-xs">
+                <a
+                  href={SOCIAL_LINKS.email}
+                  className="flex items-center justify-between py-4 text-mist transition-colors hover:text-ivory"
+                >
+                  <span className="uppercase tracking-[0.16em] text-fog">Email</span>
+                  <span className="inline-flex items-center gap-1.5 text-ivory">
+                    {PERSONAL.email} <FiArrowUpRight className="h-3.5 w-3.5" />
+                  </span>
+                </a>
+
+                {waHref && (
                   <a
-                    href={SOCIAL_LINKS.github}
+                    href={waHref}
                     target="_blank"
                     rel="noreferrer"
-                    aria-label="GitHub"
-                    className="glass flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:text-ivory"
+                    className="flex items-center justify-between py-4 text-mist transition-colors hover:text-ivory"
                   >
-                    <FiGithub className="h-4 w-4" />
+                    <span className="uppercase tracking-[0.16em] text-fog">WhatsApp</span>
+                    <span className="inline-flex items-center gap-1.5 text-ivory">
+                      +60 16-349 5594 <FiArrowUpRight className="h-3.5 w-3.5" />
+                    </span>
                   </a>
-                </Magnetic>
-                <Magnetic>
-                  <a
-                    href={SOCIAL_LINKS.linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="LinkedIn"
-                    className="glass flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:text-ivory"
-                  >
-                    <FiLinkedin className="h-4 w-4" />
-                  </a>
-                </Magnetic>
-                <Magnetic>
-                  <a
-                    href={SOCIAL_LINKS.email}
-                    aria-label="Email"
-                    className="glass flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:text-ivory"
-                  >
-                    <FiMail className="h-4 w-4" />
-                  </a>
-                </Magnetic>
-                {SOCIAL_LINKS.whatsapp && (
-                  <Magnetic>
-                    <a
-                      href={`https://wa.me/${SOCIAL_LINKS.whatsapp.replace(/[^\d]/g, "")}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label="WhatsApp"
-                      className="glass flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:text-emerald-400"
-                    >
-                      <FaWhatsapp className="h-4 w-4" />
-                    </a>
-                  </Magnetic>
                 )}
+
+                <div className="flex items-center justify-between py-4">
+                  <span className="uppercase tracking-[0.16em] text-fog">Location</span>
+                  <span className="text-mist">{PERSONAL.location}</span>
+                </div>
               </div>
             </div>
 
-          </FadeIn>
+            <div className="mt-8 flex items-center gap-2">
+              <Magnetic strength={0.3}>
+                <a
+                  href={SOCIAL_LINKS.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="GitHub"
+                  className="flex h-11 w-11 items-center justify-center rounded-sm border border-border bg-tint text-mist transition-colors hover:border-ivory hover:text-ivory"
+                >
+                  <FiGithub className="h-4 w-4" />
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.3}>
+                <a
+                  href={SOCIAL_LINKS.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn"
+                  className="flex h-11 w-11 items-center justify-center rounded-sm border border-border bg-tint text-mist transition-colors hover:border-ivory hover:text-ivory"
+                >
+                  <FiLinkedin className="h-4 w-4" />
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.3}>
+                <a
+                  href={SOCIAL_LINKS.email}
+                  aria-label="Email"
+                  className="flex h-11 w-11 items-center justify-center rounded-sm border border-border bg-tint text-mist transition-colors hover:border-ivory hover:text-ivory"
+                >
+                  <FiMail className="h-4 w-4" />
+                </a>
+              </Magnetic>
+              {waHref && (
+                <Magnetic strength={0.3}>
+                  <a
+                    href={waHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="WhatsApp"
+                    className="flex h-11 w-11 items-center justify-center rounded-sm border border-border bg-tint text-mist transition-colors hover:border-ivory hover:text-ivory"
+                  >
+                    <FaWhatsapp className="h-4 w-4" />
+                  </a>
+                </Magnetic>
+              )}
+            </div>
+          </div>
 
+          {/* Right Column: EmailJS Form (Preserving exact field names: name, email, title, message, time) */}
           <motion.form
             ref={formRef}
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, y: 32 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="glass-strong rounded-3xl p-7 sm:p-9"
+            transition={{ duration: 0.65, ease: EASE }}
+            className="p-7 sm:p-10"
           >
-            {/* The `name` attributes are the EmailJS template variables — sendForm
-                posts them verbatim. They must stay in step with the template
-                ({{name}}, {{email}}, {{title}}, {{message}}, {{time}}) or the
-                email arrives with blanks where the content should be. */}
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-fog">
+              02 · Send a Message
+            </p>
+
+            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="contact-name">Name</Label>
                 <Input
@@ -149,12 +212,8 @@ export function Contact() {
               />
             </div>
 
-            {/* The template prints {{time}} under the sender's name. Nothing else
-                supplies it, so it is stamped here just before the send. */}
             <input type="hidden" name="time" />
 
-            {/* Honeypot — off-screen rather than display:none, since some bots
-                skip hidden fields. Never focusable, never announced. */}
             <input
               type="text"
               name={HONEYPOT_FIELD}
@@ -165,8 +224,8 @@ export function Contact() {
             />
 
             <div className="mt-7 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <Magnetic>
-                <Button type="submit" size="lg" disabled={status === "sending"} data-cursor="hover">
+              <Magnetic strength={0.25}>
+                <Button type="submit" size="lg" variant="primary" disabled={status === "sending"}>
                   {status === "sending" ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" /> Sending…

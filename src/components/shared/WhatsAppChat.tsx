@@ -72,35 +72,34 @@ export function WhatsAppChat() {
             animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
             exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.96 }}
             transition={{ duration: reducedMotion ? 0 : 0.32, ease: EASE }}
-            className="glass-strong noise-overlay fixed bottom-24 left-5 z-[60] w-[min(21rem,calc(100vw-2.5rem))] overflow-hidden rounded-3xl shadow-2xl shadow-black/50 sm:bottom-28 sm:left-8"
+            className="glass-strong fixed bottom-24 left-5 z-[60] w-[min(21rem,calc(100vw-2.5rem))] overflow-hidden rounded-sm border border-border-strong shadow-2xl sm:bottom-28 sm:left-8"
           >
-            <div className="relative flex items-center gap-3 border-b border-border bg-gradient-to-r from-emerald-500/20 to-emerald-400/5 px-5 py-4">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 text-white">
+            <div className="relative flex items-center gap-3 border-b border-border bg-surface-2 px-5 py-4">
+              <span className="flex h-9 w-9 items-center justify-center rounded-sm bg-emerald-500 text-white">
                 <FaWhatsapp className="h-5 w-5" />
               </span>
               <div className="min-w-0">
-                <p className="truncate font-display text-sm font-medium text-ivory">
+                <p className="truncate font-display text-sm font-bold uppercase tracking-wide text-ivory">
                   {PERSONAL.firstName}
                 </p>
-                <p className="flex items-center gap-1.5 text-[11px] text-mist">
+                <p className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-mist">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  Usually replies within a few hours
+                  Direct WhatsApp Line
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close WhatsApp chat"
-                data-cursor="hover"
-                className="ml-auto flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:bg-tint-3 hover:text-ivory"
+                className="ml-auto flex h-10 w-10 items-center justify-center rounded-sm text-mist transition-colors hover:bg-tint-3 hover:text-ivory"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
 
-            <div className="px-5 py-4">
-              <p className="rounded-2xl rounded-tl-sm bg-tint-2 px-4 py-3 text-sm leading-relaxed text-mist">
-                Hey there 👋 Send me a message and I&apos;ll get back to you on WhatsApp.
+            <div className="bg-void p-5">
+              <p className="rounded-sm border border-border bg-surface px-4 py-3 text-xs leading-relaxed text-mist">
+                Send a message directly and I&apos;ll get back to you on WhatsApp.
               </p>
 
               <label htmlFor={`${panelId}-msg`} className="sr-only">
@@ -112,7 +111,7 @@ export function WhatsAppChat() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 rows={3}
-                className="mt-4 w-full resize-none rounded-2xl border border-border bg-black/30 px-4 py-3 text-sm text-ivory outline-none transition-colors placeholder:text-fog focus:border-emerald-400/60"
+                className="mt-4 w-full resize-none rounded-sm border border-border bg-tint px-3.5 py-2.5 text-sm text-ivory outline-none transition-colors placeholder:text-fog focus:border-ivory"
                 placeholder="Write your message…"
               />
 
@@ -121,10 +120,9 @@ export function WhatsAppChat() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => setOpen(false)}
-                data-cursor="hover"
-                className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-emerald-500 px-5 py-3 text-sm font-medium text-white transition-transform duration-300 hover:scale-[1.02] hover:bg-emerald-400"
+                className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-sm bg-ivory px-5 font-display text-xs font-semibold uppercase tracking-[0.14em] text-void transition-opacity hover:opacity-90"
               >
-                <Send className="h-4 w-4" /> Open in WhatsApp
+                <Send className="h-3.5 w-3.5" /> Open in WhatsApp
               </a>
             </div>
           </motion.div>
@@ -138,13 +136,12 @@ export function WhatsAppChat() {
         aria-label={open ? "Close WhatsApp chat" : "Chat on WhatsApp"}
         aria-expanded={open}
         aria-controls={panelId}
-        data-cursor="hover"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.6, ease: EASE }}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.94 }}
-        className="fixed bottom-6 left-5 z-[60] flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg shadow-emerald-900/40 sm:bottom-8 sm:left-8"
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.96 }}
+        className="fixed bottom-6 left-5 z-[60] flex h-11 w-11 items-center justify-center rounded-sm border border-border-strong bg-void text-ivory shadow-lg transition-colors hover:border-ivory sm:bottom-8 sm:left-8"
       >
         {/* Idle pulse to draw the eye without being noisy. */}
         {!open && !reducedMotion && (
