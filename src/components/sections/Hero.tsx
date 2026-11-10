@@ -6,7 +6,6 @@ import { Magnetic } from "@/components/shared/Magnetic";
 import { PerspectiveGrid } from "@/components/shared/PerspectiveGrid";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { useSmoothScroll } from "@/context/SmoothScrollProvider";
-import { useLoading } from "@/context/LoadingContext";
 import { PERSONAL, SOCIAL_LINKS } from "@/constants";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -21,9 +20,8 @@ const item = {
 };
 
 export function Hero() {
-  const { isLoading } = useLoading();
   const { scrollTo } = useSmoothScroll();
-  const role = useTypewriter({ words: PERSONAL.roles, enabled: !isLoading, startDelay: 450 });
+  const role = useTypewriter({ words: PERSONAL.roles, startDelay: 350 });
 
   return (
     <section
@@ -43,7 +41,7 @@ export function Hero() {
         <motion.div
           variants={container}
           initial="hidden"
-          animate={!isLoading ? "visible" : "hidden"}
+          animate="visible"
           className="flex flex-col items-center"
         >
           {/* Availability status line */}
@@ -130,7 +128,7 @@ export function Hero() {
         type="button"
         onClick={() => scrollTo("#about")}
         initial={{ opacity: 0 }}
-        animate={!isLoading ? { opacity: 1 } : { opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.9 }}
         className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-1.5 text-fog transition-colors hover:text-ivory sm:flex"
         aria-label="Scroll to About section"
