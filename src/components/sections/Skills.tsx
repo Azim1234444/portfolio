@@ -74,7 +74,7 @@ function SkillCategoryCell({
           {category.title}
         </h3>
 
-        <p className="mt-2.5 text-sm leading-relaxed text-mist">
+        <p className="mt-2.5 text-justify text-sm leading-relaxed text-mist">
           {description}
         </p>
       </div>

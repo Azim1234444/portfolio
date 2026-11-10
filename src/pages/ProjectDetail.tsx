@@ -128,7 +128,7 @@ export function ProjectDetail() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: EASE }}
-              className="mt-4 text-balance text-lg leading-relaxed text-mist"
+              className="mt-4 text-justify text-lg leading-relaxed text-mist"
             >
               {project.description}
             </motion.p>
@@ -145,7 +145,7 @@ export function ProjectDetail() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
-                    className="flex items-start gap-3.5 py-3.5 text-sm leading-relaxed text-mist sm:text-base"
+                    className="flex items-start gap-3.5 py-3.5 text-justify text-sm leading-relaxed text-mist sm:text-base"
                   >
                     <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-ivory" />
                     <span>{h}</span>

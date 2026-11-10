@@ -76,7 +76,7 @@ export function ProjectCard({ project, index }: { project: ProjectItem; index: n
             </Link>
           </h3>
 
-          <p className="mt-4 text-balance text-sm leading-relaxed text-mist sm:text-base">
+          <p className="mt-4 text-justify text-sm leading-relaxed text-mist sm:text-base">
             {project.description}
           </p>
 

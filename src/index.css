@@ -166,6 +166,11 @@
 }
 
 @layer components {
+  .text-justify {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
   .glass {
     background: var(--glass-bg);
     backdrop-filter: blur(16px);

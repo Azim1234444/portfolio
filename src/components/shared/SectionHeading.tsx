@@ -41,7 +41,7 @@ export function SectionHeading({
           <p
             className={cn(
               "mt-5 max-w-2xl text-base leading-relaxed text-mist sm:text-lg",
-              align === "center" && "mx-auto"
+              align === "center" ? "mx-auto text-center" : "text-justify"
             )}
           >
             {description}

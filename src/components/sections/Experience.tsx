@@ -58,13 +58,13 @@ function ExperienceRow({ exp, index }: { exp: (typeof EXPERIENCE)[number]; index
           {exp.role}
         </h3>
 
-        <p className="mt-4 text-base leading-relaxed text-mist">
+        <p className="mt-4 text-justify text-base leading-relaxed text-mist">
           {exp.summary}
         </p>
 
         <ul className="mt-6 space-y-3 border-t border-border pt-6">
           {exp.highlights.map((h) => (
-            <li key={h} className="flex items-start gap-3 text-sm leading-relaxed text-mist">
+            <li key={h} className="flex items-start gap-3 text-justify text-sm leading-relaxed text-mist">
               <span className="mt-2 h-1.5 w-1.5 shrink-0 bg-ivory" />
               <span>{h}</span>
             </li>

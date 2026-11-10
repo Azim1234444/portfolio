@@ -66,7 +66,7 @@ export function Contact() {
               <h3 className="mt-4 font-display text-2xl font-bold uppercase tracking-tight text-ivory">
                 Get In Touch
               </h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-mist">
+              <p className="mt-2.5 text-justify text-sm leading-relaxed text-mist">
                 Prefer direct communication? Connect via email, WhatsApp, or professional networks.
               </p>
 

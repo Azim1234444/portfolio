@@ -22,7 +22,7 @@ export function About() {
 
           <div>
             <FadeIn delay={0.1}>
-              <p className="text-balance text-base leading-relaxed text-mist sm:text-lg">
+              <p className="text-justify text-base leading-relaxed text-mist sm:text-lg">
                 {PERSONAL.bio}
               </p>
             </FadeIn>
@@ -150,7 +150,7 @@ function EducationTimeline() {
             <p className="mt-1 font-mono text-xs uppercase tracking-[0.14em] text-mist">
               {edu.institution}
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-mist">{edu.detail}</p>
+            <p className="mt-3 text-justify text-sm leading-relaxed text-mist">{edu.detail}</p>
           </div>
         </motion.li>
       ))}
