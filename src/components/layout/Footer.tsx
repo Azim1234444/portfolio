@@ -7,7 +7,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-void py-14">
+    <footer className="relative z-10 bg-void/65 py-14 backdrop-blur-sm">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         {/* Top Metadata Line (inspired by reference footer) */}
         <div className="flex flex-col items-start justify-between gap-6 border-b border-border pb-10 lg:flex-row lg:items-center">

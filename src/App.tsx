@@ -4,6 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { SmoothScrollProvider } from "@/context/SmoothScrollProvider";
 import { ScrollProgress } from "@/components/shared/ScrollProgress";
+import { PerspectiveGrid } from "@/components/shared/PerspectiveGrid";
 import { BackToTop } from "@/components/shared/BackToTop";
 import { WhatsAppChat } from "@/components/shared/WhatsAppChat";
 import { CommandPalette } from "@/components/shared/CommandPalette";
@@ -45,28 +46,35 @@ function App() {
       <ThemeProvider>
         <SmoothScrollProvider>
           <ScrollToTop />
+          {/* Persistent full-viewport animated 3D perspective grid + starfield */}
+          <PerspectiveGrid fixed horizonRatio={0.34} columns={10} rows={16} showStars />
+          <div
+            aria-hidden
+            className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_50%_34%,transparent_0%,var(--color-void)_92%)] opacity-55"
+          />
+
           <ScrollProgress />
           <Navbar />
 
-            <main>
-              <PageTransition>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/projects/:slug" element={<ProjectDetail />} />
-                  <Route path="/404" element={<NotFound />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </PageTransition>
-            </main>
+          <main className="relative z-10">
+            <PageTransition>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/projects/:slug" element={<ProjectDetail />} />
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </PageTransition>
+          </main>
 
-            <Footer />
-            <BackToTop />
-            <WhatsAppChat />
-            <CommandPalette />
+          <Footer />
+          <BackToTop />
+          <WhatsAppChat />
+          <CommandPalette />
 
-            <VitalsReporter />
-            <Analytics />
-          </SmoothScrollProvider>
+          <VitalsReporter />
+          <Analytics />
+        </SmoothScrollProvider>
       </ThemeProvider>
     </MotionConfig>
   );

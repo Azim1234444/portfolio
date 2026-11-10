@@ -50,7 +50,7 @@ export function CustomerFeedback() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.7, delay: index * 0.1, ease: EASE }}
-                className="flex flex-col justify-between border-b border-r border-border bg-void p-6 sm:p-9"
+                className="flex flex-col justify-between border-b border-r border-border bg-void/65 p-6 backdrop-blur-sm sm:p-9"
               >
                 <div>
                   <div className="mb-5 flex items-center justify-between font-mono text-xs uppercase tracking-[0.2em] text-fog">

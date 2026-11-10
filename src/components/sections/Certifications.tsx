@@ -33,7 +33,7 @@ export function Certifications() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ duration: 0.65, delay: Math.min(i, 5) * 0.07, ease: EASE }}
-                className="group flex flex-col justify-between border-b border-r border-border bg-void transition-colors duration-300 hover:bg-surface"
+                className="group flex flex-col justify-between border-b border-r border-border bg-void/65 backdrop-blur-sm transition-colors duration-300 hover:bg-void/80"
               >
                 <a
                   href={cert.certificateUrl ?? cert.image}

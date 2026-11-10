@@ -6,7 +6,6 @@ import { FiGithub, FiArrowUpRight } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/shared/Magnetic";
 import { Lightbox, type LightboxImage } from "@/components/shared/Lightbox";
-import { PerspectiveGrid } from "@/components/shared/PerspectiveGrid";
 import { PROJECTS } from "@/data/projects";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -35,10 +34,6 @@ export function ProjectDetail() {
 
   return (
     <article className="relative min-h-svh pb-28 pt-28 sm:pt-36">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-96 opacity-40">
-        <PerspectiveGrid horizonRatio={0.4} columns={10} rows={12} showStars />
-      </div>
-
       <div className="relative mx-auto max-w-6xl px-6 sm:px-8 lg:px-12">
         <motion.div
           initial={{ opacity: 0, x: -12 }}

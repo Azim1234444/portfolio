@@ -28,7 +28,7 @@ export function About() {
             </FadeIn>
 
             {/* Architectural 1px hairline stats bar */}
-            <div className="mt-12 grid grid-cols-2 divide-x divide-y divide-border border border-border sm:grid-cols-4 sm:divide-y-0">
+            <div className="mt-12 grid grid-cols-2 divide-x divide-y divide-border border border-border bg-void/65 backdrop-blur-sm sm:grid-cols-4 sm:divide-y-0">
               {STATS.map((stat, i) => (
                 <StatCard key={stat.label} {...stat} delay={i * 0.08} />
               ))}
@@ -53,8 +53,8 @@ export function About() {
 
 function ProfilePortrait() {
   return (
-    <div className="group overflow-hidden rounded-sm border border-border bg-surface">
-      <div className="flex items-center justify-between border-b border-border bg-surface-2 px-4 py-2.5">
+    <div className="group overflow-hidden rounded-sm border border-border bg-void/65 backdrop-blur-sm">
+      <div className="flex items-center justify-between border-b border-border bg-void/75 px-4 py-2.5">
         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">
           ID · AZIM HALIM
         </span>
@@ -83,7 +83,7 @@ function ProfilePortrait() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 divide-x divide-border border-t border-border bg-surface font-mono text-[11px] uppercase tracking-[0.16em] text-mist">
+      <div className="grid grid-cols-3 divide-x divide-border border-t border-border bg-void/65 font-mono text-[11px] uppercase tracking-[0.16em] text-mist">
         <span className="py-2.5 text-center">Full Stack</span>
         <span className="py-2.5 text-center">Systems</span>
         <span className="py-2.5 text-center">3D / Unity</span>

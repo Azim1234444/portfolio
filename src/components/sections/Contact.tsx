@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Magnetic } from "@/components/shared/Magnetic";
-import { PerspectiveGrid } from "@/components/shared/PerspectiveGrid";
 import { useContactForm, HONEYPOT_FIELD } from "@/hooks/useContactForm";
 import { PERSONAL, SOCIAL_LINKS } from "@/constants";
 
@@ -22,14 +21,6 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative overflow-hidden border-b border-border py-28 sm:py-36">
-      {/* Animated Perspective Grid Runway backing the closing CTA */}
-      <PerspectiveGrid horizonRatio={0.28} columns={10} rows={15} showStars />
-
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_26%,transparent_0%,var(--color-void)_85%)] opacity-60"
-      />
-
       <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         {/* Centered High-Impact Closing Banner inspired by reference */}
         <FadeIn className="mx-auto max-w-4xl text-center">
@@ -65,7 +56,7 @@ export function Contact() {
         </FadeIn>
 
         {/* Architectural 2-Column Direct Contact & Form Ledger */}
-        <div className="mt-20 grid grid-cols-1 border border-border bg-void/90 backdrop-blur-md lg:grid-cols-[0.42fr_0.58fr]">
+        <div className="mt-20 grid grid-cols-1 border border-border bg-void/65 backdrop-blur-sm lg:grid-cols-[0.42fr_0.58fr]">
           {/* Left Column: Direct Channels */}
           <div className="flex flex-col justify-between border-b border-border p-7 sm:p-10 lg:border-b-0 lg:border-r">
             <div>

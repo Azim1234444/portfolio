@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FiGithub, FiArrowUpRight } from "react-icons/fi";
 import { ArrowRight } from "lucide-react";
-import { PerspectiveGrid } from "@/components/shared/PerspectiveGrid";
 import type { ProjectItem } from "@/types";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -18,23 +17,15 @@ export function ProjectCard({ project, index }: { project: ProjectItem; index: n
       transition={{ duration: 0.75, ease: EASE }}
       className="group relative overflow-hidden py-16 sm:py-24"
     >
-      {/* Subtle perspective wireframe runway at the base of each case study row */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-56 opacity-45 transition-opacity duration-500 group-hover:opacity-75"
-      >
-        <PerspectiveGrid horizonRatio={0.15} columns={8} rows={10} showStars={false} />
-      </div>
-
       <div className="relative z-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.18fr_0.82fr] lg:gap-14">
         {/* Left Column: Browser-Framed Project Screenshot */}
         <Link
           to={`/projects/${project.slug}`}
           aria-label={`View ${project.title} case study`}
-          className="block overflow-hidden rounded-sm border border-border bg-surface transition-colors duration-300 group-hover:border-border-strong"
+          className="block overflow-hidden rounded-sm border border-border bg-void/65 backdrop-blur-sm transition-colors duration-300 group-hover:border-border-strong"
         >
           {/* Minimalist browser chrome bar */}
-          <div className="flex items-center justify-between border-b border-border bg-surface-2 px-3.5 py-2">
+          <div className="flex items-center justify-between border-b border-border bg-void/75 px-3.5 py-2">
             <div className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-ivory/25" />
               <span className="h-2 w-2 rounded-full bg-ivory/25" />

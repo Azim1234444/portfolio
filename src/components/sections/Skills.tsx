@@ -62,7 +62,7 @@ function SkillCategoryCell({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.65, delay: (index % 3) * 0.08, ease: EASE }}
-      className="group flex flex-col justify-between border-b border-r border-border bg-void p-7 transition-colors duration-300 hover:bg-surface sm:p-9"
+      className="group flex flex-col justify-between border-b border-r border-border bg-void/65 p-7 backdrop-blur-sm transition-colors duration-300 hover:bg-void/80 sm:p-9"
     >
       <div>
         <div className="flex items-center justify-between font-mono text-xs text-fog">

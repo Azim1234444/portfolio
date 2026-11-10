@@ -3,7 +3,6 @@ import { FiArrowDown, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { Download, FolderKanban, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/shared/Magnetic";
-import { PerspectiveGrid } from "@/components/shared/PerspectiveGrid";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { useSmoothScroll } from "@/context/SmoothScrollProvider";
 import { PERSONAL, SOCIAL_LINKS } from "@/constants";
@@ -28,15 +27,6 @@ export function Hero() {
       id="home"
       className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden border-b border-border pb-20 pt-28 sm:pt-32"
     >
-      {/* Animated 3D Perspective Wireframe Runway + Active Tiles + Starfield */}
-      <PerspectiveGrid horizonRatio={0.34} columns={10} rows={16} showStars />
-
-      {/* Vignette fade so text stays ultra-crisp against the grid horizon */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_32%,transparent_0%,var(--color-void)_82%)] opacity-60"
-      />
-
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 text-center sm:px-8">
         <motion.div
           variants={container}

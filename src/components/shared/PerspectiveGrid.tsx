@@ -33,12 +33,14 @@ interface PerspectiveGridProps {
   showStars?: boolean;
   /** Vertical position of the vanishing horizon (0 to 1) */
   horizonRatio?: number;
+  /** Render as a fixed full-viewport background that stays behind the page on scroll */
+  fixed?: boolean;
 }
 
 /**
  * Animated 3D-projected triangulated perspective wireframe runway with
- * forward-scrolling grid lines, glowing active tiles, and ambient starfield.
- * Automatically pauses when scrolled out of view and respects reduced motion.
+ * forward-scrolling grid lines, glowing active tiles, ambient starfield,
+ * and scroll-reactive velocity boost.
  */
 export function PerspectiveGrid({
   className,
@@ -46,6 +48,7 @@ export function PerspectiveGrid({
   rows = 16,
   showStars = true,
   horizonRatio = 0.28,
+  fixed = false,
 }: PerspectiveGridProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reducedMotion = useReducedMotion();
@@ -64,6 +67,8 @@ export function PerspectiveGrid({
     let frame = 0;
     let inView = true;
     let offset = 0;
+    let scrollBoost = 0;
+    let lastScrollY = window.scrollY;
     let pointerX = 0;
     let targetPointerX = 0;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -86,8 +91,8 @@ export function PerspectiveGrid({
 
     function resize() {
       const parent = canvas!.parentElement;
-      width = parent?.clientWidth ?? window.innerWidth;
-      height = parent?.clientHeight ?? window.innerHeight;
+      width = fixed ? window.innerWidth : (parent?.clientWidth ?? window.innerWidth);
+      height = fixed ? window.innerHeight : (parent?.clientHeight ?? window.innerHeight);
       canvas!.width = width * dpr;
       canvas!.height = height * dpr;
       canvas!.style.width = `${width}px`;
@@ -135,11 +140,17 @@ export function PerspectiveGrid({
       const strokeRgb = isLight ? "15, 15, 20" : "255, 255, 255";
       const cellRgb = isLight ? "15, 15, 20" : "255, 255, 255";
 
+      if (!reducedMotion && scrollBoost > 0) {
+        scrollBoost *= 0.91;
+        if (scrollBoost < 0.00005) scrollBoost = 0;
+      }
+      const step = 0.0042 + scrollBoost;
+
       // 1. Ambient Starfield
       if (showStars) {
         for (const s of stars) {
           if (!reducedMotion) {
-            s.y += s.vy;
+            s.y += s.vy * (1 + scrollBoost * 95);
             if (s.y < -4) {
               s.y = height + 4;
               s.x = Math.random() * width;
@@ -162,7 +173,7 @@ export function PerspectiveGrid({
       const vpY = height * horizonRatio;
 
       if (!reducedMotion) {
-        offset = (offset + 0.0042) % 1;
+        offset = (offset + step) % 1;
       }
 
       const halfCols = columns / 2;
@@ -172,7 +183,7 @@ export function PerspectiveGrid({
         const cell = cells[i];
         if (!reducedMotion) {
           cell.life += 1;
-          cell.rowOffset += 0.0042 * cell.speed;
+          cell.rowOffset += step * cell.speed;
           if (cell.life >= cell.maxLife || cell.rowOffset >= rows - 1) {
             cells[i] = spawnCell(false);
             continue;
@@ -297,6 +308,24 @@ export function PerspectiveGrid({
       targetPointerX = (e.clientX / Math.max(1, window.innerWidth) - 0.5) * 2;
     }
 
+    function onScroll() {
+      const currentY = window.scrollY;
+      const delta = Math.abs(currentY - lastScrollY);
+      lastScrollY = currentY;
+      if (delta > 0) {
+        scrollBoost = Math.min(0.036, scrollBoost + delta * 0.00038);
+      }
+    }
+
+    function onWindowResize() {
+      resize();
+      render(performance.now());
+    }
+
+    function onVisibilityChange() {
+      inView = !document.hidden;
+    }
+
     resize();
     render(performance.now());
     if (!reducedMotion) {
@@ -307,7 +336,9 @@ export function PerspectiveGrid({
       resize();
       render(performance.now());
     });
-    ro.observe(canvas.parentElement ?? canvas);
+    if (!fixed) {
+      ro.observe(canvas.parentElement ?? canvas);
+    }
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -315,23 +346,37 @@ export function PerspectiveGrid({
       },
       { rootMargin: "150px" }
     );
-    io.observe(canvas);
+    if (!fixed) {
+      io.observe(canvas);
+    }
 
     window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    if (fixed) {
+      window.addEventListener("resize", onWindowResize, { passive: true });
+      document.addEventListener("visibilitychange", onVisibilityChange);
+    }
 
     return () => {
       cancelAnimationFrame(frame);
       ro.disconnect();
       io.disconnect();
       window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onWindowResize);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
-  }, [columns, rows, showStars, horizonRatio, reducedMotion]);
+  }, [columns, rows, showStars, horizonRatio, fixed, reducedMotion]);
 
   return (
     <canvas
       ref={canvasRef}
       aria-hidden
-      className={cn("pointer-events-none absolute inset-0", className)}
+      className={cn(
+        "pointer-events-none",
+        fixed ? "fixed inset-0 z-0" : "absolute inset-0",
+        className
+      )}
     />
   );
 }
