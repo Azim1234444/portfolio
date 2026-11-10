@@ -42,7 +42,7 @@ export function Navbar() {
       <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.1, ease: EASE }}
+        transition={{ duration: 0.65, delay: 0.05, ease: EASE }}
         className="fixed inset-x-0 top-0 z-50 flex justify-center border-b border-transparent transition-colors duration-300"
         style={{
           borderColor: scrolled ? "var(--color-border)" : "transparent",

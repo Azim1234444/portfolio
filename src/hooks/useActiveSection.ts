@@ -1,41 +1,77 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 /**
- * Scroll-spy: observes each section id and reports whichever is most visible.
+ * Scroll-spy: tracks which section crosses the upper reading line (~25% from top of viewport),
+ * working reliably regardless of section height (e.g. tall multi-project sections),
+ * and keeps "projects" active when viewing individual `/projects/:slug` pages.
  */
 export function useActiveSection(ids: string[]) {
+  const { pathname } = useLocation();
   const [activeId, setActiveId] = useState(ids[0] ?? "");
 
   useEffect(() => {
-    const elements = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => Boolean(el));
+    if (pathname.startsWith("/projects/")) {
+      setActiveId("projects");
+      return;
+    }
 
-    if (elements.length === 0) return;
+    let rafId = 0;
 
-    const ratios = new Map<string, number>();
+    function computeActive() {
+      const elements = ids
+        .map((id) => document.getElementById(id))
+        .filter((el): el is HTMLElement => Boolean(el));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          ratios.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
-        });
-        let bestId = "";
-        let bestRatio = 0;
-        ratios.forEach((ratio, id) => {
-          if (ratio > bestRatio) {
-            bestRatio = ratio;
-            bestId = id;
-          }
-        });
-        if (bestId) setActiveId(bestId);
-      },
-      { threshold: [0.15, 0.3, 0.5, 0.7, 0.9], rootMargin: "-10% 0px -35% 0px" }
-    );
+      if (elements.length === 0) return;
 
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [ids]);
+      // If scrolled to the very bottom of the page, activate the last section
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 32
+      ) {
+        setActiveId(elements[elements.length - 1].id);
+        return;
+      }
 
-  return activeId;
+      // Reading line at 25% from the top of the viewport
+      const readingLine = window.innerHeight * 0.25;
+      let currentId = elements[0].id;
+
+      for (const el of elements) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= readingLine) {
+          currentId = el.id;
+        } else {
+          break;
+        }
+      }
+
+      setActiveId(currentId);
+    }
+
+    function onScrollOrResize() {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0;
+        computeActive();
+      });
+    }
+
+    computeActive();
+    // Re-check shortly after mount/route transition in case layout shifts
+    const settleTimer = window.setTimeout(computeActive, 120);
+
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize, { passive: true });
+
+    return () => {
+      if (rafId) window.cancelAnimationFrame(rafId);
+      window.clearTimeout(settleTimer);
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
+    };
+  }, [ids, pathname]);
+
+  return pathname.startsWith("/projects/") ? "projects" : activeId;
 }
