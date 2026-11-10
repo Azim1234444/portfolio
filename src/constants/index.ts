@@ -12,7 +12,7 @@ export const PERSONAL = {
   bio: "I am a Bachelor of Computer Science (Hons.) Multimedia Computing student at Universiti Teknologi MARA (UiTM) with a strong interest in software development and interactive digital experiences. Passionate about building user-friendly applications, I continuously improve my skills in frontend, backend, game development, and UI/UX design. My experience spans full-stack web development, WordPress solutions, a web-based Permit-to-Work (PTW) Management System, and the development of a 3D survival horror game focused on mental health awareness. My goal is to build impactful software that combines creativity, technical excellence, and problem-solving.",
   location: "Sri Gading, Batu Pahat, Johor, Malaysia",
   email: "azimhebat666@gmail.com",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/Resume_Muhammad Nur Azim Bin Abdul Halim_Software Engineer.pdf",
 };
 
 export const NAV_LINKS = [
