@@ -12,9 +12,28 @@ export function Footer() {
         {/* Top Metadata Line (inspired by reference footer) */}
         <div className="flex flex-col items-start justify-between gap-6 border-b border-border pb-10 lg:flex-row lg:items-center">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="flex h-7 w-7 items-center justify-center rounded-sm border border-border-strong bg-ivory font-display text-xs font-bold text-void">
-              AH
-            </span>
+            <svg
+              viewBox="0 0 64 64"
+              fill="none"
+              aria-hidden
+              className="h-7 w-7 shrink-0"
+            >
+              <rect
+                x="2"
+                y="2"
+                width="60"
+                height="60"
+                rx="6"
+                fill="var(--color-void)"
+                stroke="var(--color-ivory)"
+                strokeWidth="3.5"
+              />
+              <path
+                d="M32 12L50 48H39.5L32 32.5L24.5 48H14L32 12Z"
+                fill="var(--color-ivory)"
+              />
+              <path d="M25 38H39L42 44H22L25 38Z" fill="#10B981" />
+            </svg>
             <span className="font-display text-sm font-bold uppercase tracking-wider text-ivory">
               {PERSONAL.name}
             </span>

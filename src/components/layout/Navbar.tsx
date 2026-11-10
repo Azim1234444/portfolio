@@ -60,9 +60,28 @@ export function Navbar() {
             aria-label="Muhammad Nur Azim — back to top"
             className="flex h-11 items-center gap-3 text-ivory"
           >
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-border-strong bg-ivory font-display text-xs font-bold tracking-wider text-void">
-              AH
-            </span>
+            <svg
+              viewBox="0 0 64 64"
+              fill="none"
+              aria-hidden
+              className="h-8 w-8 shrink-0"
+            >
+              <rect
+                x="2"
+                y="2"
+                width="60"
+                height="60"
+                rx="6"
+                fill="var(--color-void)"
+                stroke="var(--color-ivory)"
+                strokeWidth="3.5"
+              />
+              <path
+                d="M32 12L50 48H39.5L32 32.5L24.5 48H14L32 12Z"
+                fill="var(--color-ivory)"
+              />
+              <path d="M25 38H39L42 44H22L25 38Z" fill="#10B981" />
+            </svg>
             <span className="hidden font-mono text-xs font-medium uppercase tracking-[0.2em] text-ivory sm:inline">
               AZIM HALIM
             </span>
