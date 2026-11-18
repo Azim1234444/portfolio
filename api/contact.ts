@@ -28,13 +28,22 @@ function json(data: Record<string, unknown>, status = 200): Response {
   });
 }
 
+function getEnv(key: string): string | undefined {
+  const proc = (
+    globalThis as unknown as {
+      process?: { env?: Record<string, string | undefined> };
+    }
+  ).process;
+  return proc?.env?.[key];
+}
+
 export async function POST(request: Request): Promise<Response> {
   const origin = request.headers.get("origin");
   if (!isAllowedOrigin(origin)) {
     return json({ error: "Forbidden origin." }, 403);
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = getEnv("RESEND_API_KEY");
   if (!apiKey) {
     return json(
       { error: "Contact service is not configured on the server yet." },
@@ -73,8 +82,8 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const fromEmail =
-    process.env.RESEND_FROM_EMAIL || "Portfolio Contact <onboarding@resend.dev>";
-  const toEmail = process.env.CONTACT_TO_EMAIL || "azimhebat666@gmail.com";
+    getEnv("RESEND_FROM_EMAIL") || "Portfolio Contact <onboarding@resend.dev>";
+  const toEmail = getEnv("CONTACT_TO_EMAIL") || "azimhebat666@gmail.com";
 
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #18181b; background: #ffffff; border: 1px solid #e4e4e7;">
