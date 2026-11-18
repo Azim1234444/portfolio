@@ -11,4 +11,17 @@ export default defineConfig({
       '@': path.resolve(import.meta.dirname, './src'),
     },
   },
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            { name: 'vendor-react', test: /node_modules[\\/](react|react-dom|react-router|react-router-dom)[\\/]/ },
+            { name: 'vendor-motion', test: /node_modules[\\/](framer-motion|gsap|lenis)[\\/]/ },
+            { name: 'vendor-ui', test: /node_modules[\\/](lucide-react|react-icons|@radix-ui|cmdk)[\\/]/ },
+          ],
+        },
+      },
+    },
+  },
 })

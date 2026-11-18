@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://muhammadnurazim.vercel.app/sitemap.xml
+Sitemap: https://azimhalim.my/sitemap.xml

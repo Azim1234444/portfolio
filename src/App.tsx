@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { MotionConfig } from "framer-motion";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -13,9 +14,14 @@ import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Home } from "@/pages/Home";
-import { ProjectDetail } from "@/pages/ProjectDetail";
-import { NotFound } from "@/pages/NotFound";
 import { Analytics } from '@vercel/analytics/react';
+
+const ProjectDetail = lazy(() =>
+  import("@/pages/ProjectDetail").then((m) => ({ default: m.ProjectDetail }))
+);
+const NotFound = lazy(() =>
+  import("@/pages/NotFound").then((m) => ({ default: m.NotFound }))
+);
 
 /**
  * Vercel Speed Insights. Renders nothing — it samples real-user Core Web Vitals
@@ -58,12 +64,14 @@ function App() {
 
           <main className="relative z-10">
             <PageTransition>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/projects/:slug" element={<ProjectDetail />} />
-                <Route path="/404" element={<NotFound />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <Suspense fallback={<div className="min-h-svh" />}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/projects/:slug" element={<ProjectDetail />} />
+                  <Route path="/404" element={<NotFound />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
             </PageTransition>
           </main>
 
