@@ -150,7 +150,7 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Right Column: EmailJS Form (Preserving exact field names: name, email, title, message, time) */}
+          {/* Right Column: Contact Form (Preserving field names: name, email, title, message, time) */}
           <motion.form
             ref={formRef}
             onSubmit={handleSubmit}
