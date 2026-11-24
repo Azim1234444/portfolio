@@ -52,8 +52,167 @@ import kongsiRasaAdminRecipes from "@/assets/images/kongsirasa-admin-recipes.web
 import ipDashboard from "@/assets/images/ip-dashboard.webp";
 import ipTables from "@/assets/images/ip-tables.webp";
 import ipEdit from "@/assets/images/ip-edit.webp";
+import moraknivHome from "@/assets/images/morakniv-home.webp";
+import moraknivProducts from "@/assets/images/morakniv-products.webp";
+import moraknivBoning from "@/assets/images/morakniv-boning.webp";
+import moraknivTechnology from "@/assets/images/morakniv-technology.webp";
+import moraknivCompliance from "@/assets/images/morakniv-compliance.webp";
+import terpesonaHome from "@/assets/images/terpesona-home.webp";
+import terpesonaBag from "@/assets/images/terpesona-bag.webp";
+import terpesonaShipping from "@/assets/images/terpesona-shipping.webp";
+import terpesonaLogin from "@/assets/images/terpesona-login.webp";
+import nutriscanBanner from "@/assets/images/nutriscan-banner.webp";
+import nutriscanDashboard from "@/assets/images/nutriscan-dashboard.webp";
+import nutriscanScan from "@/assets/images/nutriscan-scan.webp";
+import nutriscanAnalysis from "@/assets/images/nutriscan-analysis.webp";
+import nutriscanHistory from "@/assets/images/nutriscan-history.webp";
 
 export const PROJECTS: ProjectItem[] = [
+  {
+    slug: "nutriscan-ai-nutrition-tracker",
+    title: "NutriScan — AI Food & Nutrition Tracker",
+    category: "Mobile App",
+    year: "2026",
+    tags: [
+      "Flutter",
+      "Dart",
+      "Google Gemini",
+      "Firebase Auth",
+      "Cloud Firestore",
+      "Open Food Facts",
+      "Barcode Scanner",
+      "Speech-to-Text",
+    ],
+    description:
+      "An AI-powered Flutter Android nutrition tracker backed by Google Gemini, Firebase Auth, Cloud Firestore, and Open Food Facts — enabling users to scan meals via camera, barcode, or voice to estimate calories and macros and track daily and weekly nutrition goals.",
+    highlights: [
+      "AI meal photo analysis powered by Google Gemini with calorie, macro breakdown, and confidence scoring (including local dishes like Nasi Ayam Penyet)",
+      "Multi-modal food logging via camera capture, barcode scanning (Open Food Facts), and voice input (speech-to-text)",
+      "Real-time daily dashboard tracking remaining calories, progress percentage, and protein, carbs, and fat targets",
+      "Weekly nutrition history view with day-by-day calorie trends, meal editing, and macro summaries",
+      "Firebase Auth, Cloud Firestore persistence, and Firebase App Check with a Google Play Closed Testing release pipeline",
+    ],
+    github: "https://github.com/Azim1234444/nutriscan",
+    image: nutriscanBanner,
+    gallery: [
+      {
+        src: nutriscanDashboard,
+        caption: "Home dashboard — daily calorie ring, macro targets, and recent meals",
+      },
+      {
+        src: nutriscanScan,
+        caption: "Scan Food — meal photo capture and review before AI analysis",
+      },
+      {
+        src: nutriscanAnalysis,
+        caption: "AI Analysis — estimated calories, macro breakdown, and confidence score",
+      },
+      {
+        src: nutriscanHistory,
+        caption: "History — weekly calorie chart, day totals, and meal logs",
+      },
+    ],
+    gradient: ["#15803d", "#34d399"],
+    featured: true,
+  },
+  {
+    slug: "morakniv-food-industry-malaysia",
+    title: "Morakniv Food Industry Malaysia — Product Catalogue & Quotation Website",
+    category: "Corporate & Catalogue",
+    year: "2026",
+    tags: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Responsive Design",
+      "Product Catalogue",
+      "SEO",
+      "Vercel",
+    ],
+    description:
+      "The Malaysian product showcase and B2B quotation website for Morakniv Food Industry knives (distributed by Akmal Station) — presenting 45 professional knife models across 6 categories and 99 article numbers with metallurgy specifications, food contact compliance declarations, and quotation workflows.",
+    highlights: [
+      "Structured 6-category knife catalogue (Boning, Butcher, Filleting, Trimming, Chef's, and Special Knives) covering 45 models and 99 article numbers",
+      "Filterable product specs by blade flex grade (stiff to extra flex) and 5 handle colours including metal-detectable blue",
+      "Dedicated technology pages detailing Alleima 10C28Mo2 Swedish stainless steel (57 HRC), blade grinding, PUG handles, and safety",
+      "Quality & Compliance section publishing Morakniv AB food contact material declarations and European regulatory standards",
+      "B2B quotation request flow, ordering guide, dealer information, and SEO-ready metadata with sitemap",
+    ],
+    demo: "https://morakniv-food-industry-website.vercel.app/",
+    image: moraknivHome,
+    gallery: [
+      {
+        src: moraknivHome,
+        caption: "Homepage — Morakniv Food Industry Malaysia hero, metrics, and quotation entry",
+      },
+      {
+        src: moraknivProducts,
+        caption: "Product range — 6 professional knife categories covering 45 models",
+      },
+      {
+        src: moraknivBoning,
+        caption: "Category detail — Boning Knives with 22 models and 66 article numbers",
+      },
+      {
+        src: moraknivTechnology,
+        caption: "Technology — Alleima 10C28Mo2 steel metallurgy and blade engineering",
+      },
+      {
+        src: moraknivCompliance,
+        caption: "Quality & Compliance — Morakniv AB food contact material declarations",
+      },
+    ],
+    gradient: ["#b72d25", "#1f2937"],
+    featured: true,
+  },
+  {
+    slug: "terpesona-gift-boutique-ecommerce",
+    title: "Terpesona — Luxury Gift Boutique & E-Commerce",
+    category: "E-Commerce & Web",
+    year: "2026",
+    tags: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "E-Commerce",
+      "Responsive Design",
+      "SEO",
+      "Vercel",
+    ],
+    description:
+      "A refined Malaysian gift boutique e-commerce storefront for Terpesona, showcasing curated gift sets, prayer & self-care boxes, festive hampers, and bespoke corporate gifting with complimentary handwritten calligraphy notes and same-day Klang Valley dispatch.",
+    highlights: [
+      "Editorial boutique storefront featuring Signature, Under RM 100, Festive, and Corporate Hamper collections",
+      "Interactive search, collection filtering, price bracket sorting, and shopping bag workflow",
+      "Dedicated Gift Concierge and WhatsApp bespoke arrangement flow for custom gifting",
+      "Same-day Klang Valley dispatch highlights, delivery policies, and complimentary calligraphy note options",
+      "SEO-configured metadata, structured sitemap, and responsive layout across desktop and mobile",
+    ],
+    demo: "https://terpesona-ecommerce.vercel.app/",
+    image: terpesonaHome,
+    gallery: [
+      {
+        src: terpesonaHome,
+        caption: "Storefront homepage — curated gift sets, value tiers, and exclusive collections",
+      },
+      {
+        src: terpesonaBag,
+        caption: "Shopping cart — curated gift bag with WhatsApp stylist concierge",
+      },
+      {
+        src: terpesonaShipping,
+        caption: "Shipping & courier policy — nationwide coverage and free delivery tiers",
+      },
+      {
+        src: terpesonaLogin,
+        caption: "Customer & boutique sign-in with email and Google authentication",
+      },
+    ],
+    gradient: ["#6b1d2f", "#d4af37"],
+    featured: true,
+  },
   {
     slug: "trusted-empire-subscription-platform",
     title: "Trusted Empire — Digital Subscription Platform",
