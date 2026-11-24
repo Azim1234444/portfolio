@@ -92,7 +92,6 @@ export const PROJECTS: ProjectItem[] = [
       "Weekly nutrition history view with day-by-day calorie trends, meal editing, and macro summaries",
       "Firebase Auth, Cloud Firestore persistence, and Firebase App Check with a Google Play Closed Testing release pipeline",
     ],
-    github: "https://github.com/Azim1234444/nutriscan",
     image: nutriscanBanner,
     gallery: [
       {
@@ -139,7 +138,6 @@ export const PROJECTS: ProjectItem[] = [
       "Quality & Compliance section publishing Morakniv AB food contact material declarations and European regulatory standards",
       "B2B quotation request flow, ordering guide, dealer information, and SEO-ready metadata with sitemap",
     ],
-    demo: "https://morakniv-food-industry-website.vercel.app/",
     image: moraknivHome,
     gallery: [
       {
@@ -190,7 +188,6 @@ export const PROJECTS: ProjectItem[] = [
       "Same-day Klang Valley dispatch highlights, delivery policies, and complimentary calligraphy note options",
       "SEO-configured metadata, structured sitemap, and responsive layout across desktop and mobile",
     ],
-    demo: "https://terpesona-ecommerce.vercel.app/",
     image: terpesonaHome,
     gallery: [
       {
