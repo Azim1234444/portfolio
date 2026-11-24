@@ -57,6 +57,8 @@ import moraknivProducts from "@/assets/images/morakniv-products.webp";
 import moraknivBoning from "@/assets/images/morakniv-boning.webp";
 import moraknivTechnology from "@/assets/images/morakniv-technology.webp";
 import moraknivCompliance from "@/assets/images/morakniv-compliance.webp";
+import moraknivCatalogue from "@/assets/images/morakniv-catalogue.webp";
+import moraknivProductDetail from "@/assets/images/morakniv-product-detail.webp";
 import terpesonaHome from "@/assets/images/terpesona-home.webp";
 import terpesonaBag from "@/assets/images/terpesona-bag.webp";
 import terpesonaShipping from "@/assets/images/terpesona-shipping.webp";
@@ -151,6 +153,14 @@ export const PROJECTS: ProjectItem[] = [
       {
         src: moraknivBoning,
         caption: "Category detail — Boning Knives with 22 models and 66 article numbers",
+      },
+      {
+        src: moraknivCatalogue,
+        caption: "Catalogue grid — 45 knife models with flex grades and handle colour indicators",
+      },
+      {
+        src: moraknivProductDetail,
+        caption: "Product detail — CB5S-PUG specifications and handle colour article selector",
       },
       {
         src: moraknivTechnology,
