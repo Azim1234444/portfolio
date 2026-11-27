@@ -68,8 +68,74 @@ import nutriscanDashboard from "@/assets/images/nutriscan-dashboard.webp";
 import nutriscanScan from "@/assets/images/nutriscan-scan.webp";
 import nutriscanAnalysis from "@/assets/images/nutriscan-analysis.webp";
 import nutriscanHistory from "@/assets/images/nutriscan-history.webp";
+import terpesonaPremiumHero from "@/assets/images/terpesona-premium-hero.webp";
+import terpesonaPremiumShowcase from "@/assets/images/terpesona-premium-showcase.webp";
+import terpesonaPremiumCollection from "@/assets/images/terpesona-premium-collection.webp";
+import terpesonaPremiumCart from "@/assets/images/terpesona-premium-cart.webp";
+import terpesonaPremiumPackages from "@/assets/images/terpesona-premium-packages.webp";
+import terpesonaPremiumMobile from "@/assets/images/terpesona-premium-mobile.webp";
 
 export const PROJECTS: ProjectItem[] = [
+  {
+    slug: "terpesona-premium-gift-sets",
+    title: "Terpesona Premium: Editorial Gift-Set Storefront",
+    category: "E-Commerce & Web",
+    year: "2026",
+    tags: [
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "Framer Motion",
+      "E-Commerce",
+      "Mobile-First UX",
+      "WCAG AA",
+      "Vercel",
+    ],
+    description:
+      "An editorial Malaysian gift-set storefront for Terpesona Premium showcasing 7 curated ribbon gift boxes (RM25.90 to RM55.90), featuring an interactive 3D-tilting hero, swipeable category showcase, multi-item WhatsApp order bag, corporate gifting tiers, and thumb-friendly mobile navigation.",
+    highlights: [
+      "Editorial hero featuring an interactive 3D-tilting glossy gift-box centerpiece with scroll parallax and desktop rail navigation",
+      "Dusty-rose swipeable showcase carousel with rounded-arch product cards, category tabs, and quick-add controls",
+      "Variable-hierarchy 7-set catalog with live category filtering, price sorting, instant search modal, and full box-contents inspection",
+      "Multi-item Bakul Pesanan cart drawer and bulk order form that auto-calculate totals and compile prefilled WhatsApp and email summaries",
+      "Mobile-first UX with sticky 3-slot header, thumb-zone bottom bar, portal full-height menu drawer, bottom-sheet modal, 44px tap targets, and WCAG AA verified contrast",
+    ],
+    image: terpesonaPremiumHero,
+    gallery: [
+      {
+        src: terpesonaPremiumHero,
+        caption:
+          "Desktop hero: editorial typography, glossy 3D gift-box centerpiece, and left rail navigation",
+      },
+      {
+        src: terpesonaPremiumShowcase,
+        caption:
+          "Pilihan Set showcase: dusty-rose rounded-arch carousel with category tabs and quick-add buttons",
+      },
+      {
+        src: terpesonaPremiumCollection,
+        caption:
+          "Koleksi kami: variable-hierarchy 7-set catalog with category filters and price sorting",
+      },
+      {
+        src: terpesonaPremiumCart,
+        caption:
+          "Bakul Pesanan: multi-item order drawer with quantity controls, greeting notes, and WhatsApp checkout",
+      },
+      {
+        src: terpesonaPremiumPackages,
+        caption:
+          "Bulk and corporate gifting: 3-step ordering flow and tiered packages from RM25.90 to RM55.90",
+      },
+      {
+        src: terpesonaPremiumMobile,
+        caption:
+          "Mobile-first UX: sticky header, thumb bottom bar, brand story layout, and full-height portal drawer",
+      },
+    ],
+    gradient: ["#7e2b41", "#dc869b"],
+    featured: true,
+  },
   {
     slug: "nutriscan-ai-nutrition-tracker",
     title: "NutriScan — AI Food & Nutrition Tracker",
